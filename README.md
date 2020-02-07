@@ -33,3 +33,4 @@ Pour lancer 1 ou n parties, il faut modifier le 3ème paramètre (nbPartie) lors
 [JANIN Rémi](https://github.com/Remi-janin)<br/>
 [PAJANY Allan ](https://github.com/Allan06)<br/>
 [Michael Porrecchia ](https://github.com/)<br/>
+[Sébastien DESIDERI ](https://github.com/)<br/>
