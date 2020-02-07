@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ChoixBatimentStepDefs implements Fr {
 
+    private Partie partie;
     private StrategieRandom b;
     private Joueurs joueur;
     private Joueurs[] joueurs;
@@ -43,8 +44,8 @@ public class ChoixBatimentStepDefs implements Fr {
     public ChoixBatimentStepDefs() {
 
         Etantdonné("le joueur du nom de {string}", (String id) -> {
-            b = new StrategieRandom();
-            joueur = new Joueurs("0", b);
+            partie = new Partie(0, 2);
+            joueurs[0] = partie.getJoueurs()[0];
             joueurs = new Joueurs[1];
             joueurs[0] = joueur;
             joueur.setIDjoueur(id);
@@ -92,7 +93,7 @@ public class ChoixBatimentStepDefs implements Fr {
             role = new ArrayList<>();
             batisseur = new Batisseur();
             role.add(batisseur);
-            String choix = joueur.choixRole(role, 0).getNom();
+            String choix = joueur.choixRole(partie, 0).getNom();
             assertEquals(choix, batisseur.getNom());
         });
 
@@ -101,7 +102,7 @@ public class ChoixBatimentStepDefs implements Fr {
             assertEquals(id, joueur.getIdJoueur());
             ArrayList batimentsTmp = (ArrayList) batiments.clone();
 
-            batisseur.action(joueurs, 0, plantations, carrieres, batiments, magasin, banque, reserve,navire,1);
+            batisseur.action(joueurs, 0, partie,1);
             bat = joueur.getPlateau().getCite()[0];
             assertTrue(batimentsTmp.contains(bat));
         });

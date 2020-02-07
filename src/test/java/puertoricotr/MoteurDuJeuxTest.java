@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import puertoricotr.batiments.productions.TeinturerieIndigo;
 import puertoricotr.personnages.ChercheurOR;
 import puertoricotr.personnages.Personnage;
-import puertoricotr.stockageoutilsjeux.Banque;
 
 import java.util.ArrayList;
 
@@ -13,18 +12,21 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MoteurDuJeuxTest {
 
     private MoteurDuJeux moteurDuJeux;
+    private Partie partie;
 
     /**
      * Test de la methode servant à initialiser la pile de plantation
      */
     @Test
     public void initPilePlantationTest(){
+
         moteurDuJeux = new MoteurDuJeux(0,2, 0);
-        assertEquals(2, moteurDuJeux.getNbJoueurTotal());
+        partie = moteurDuJeux.getPartie();
+        assertEquals(2, partie.getNbJoueurTotal());
 
         moteurDuJeux = new MoteurDuJeux(0,2,0);
 
-        assertEquals (47, moteurDuJeux.getPilePlantation().size());
+        assertEquals (47, partie.getPilePlantation().size());
     }
 
     /**
@@ -33,7 +35,8 @@ public class MoteurDuJeuxTest {
     @Test
     public void initPlantationsTest(){
         moteurDuJeux = new MoteurDuJeux(0,2, 0);
-        assertTrue(moteurDuJeux.getPlantations().size()  > moteurDuJeux.getNbJoueurTotal());
+        partie = moteurDuJeux.getPartie();
+        assertTrue(partie.getPlantations().size()  > partie.getNbJoueurTotal());
 
     }
 
@@ -44,12 +47,8 @@ public class MoteurDuJeuxTest {
     public void initNavireTest(){
         // 2 Joueurs
         moteurDuJeux = new MoteurDuJeux(0,2, 1);
-        assertEquals(2, moteurDuJeux.getNavires().size());
-
-        // 3 joueurs
-        moteurDuJeux = new MoteurDuJeux(0,3, 1);
-
-        assertEquals(3, moteurDuJeux.getNavires().size());
+        partie = moteurDuJeux.getPartie();
+        assertEquals(2, partie.getNavires().size());
     }
 
 
@@ -60,19 +59,19 @@ public class MoteurDuJeuxTest {
     public void ajouteDoublonTest(){
 
         moteurDuJeux = new MoteurDuJeux(0,2, 0);
-
+        partie = moteurDuJeux.getPartie();
         ArrayList<Personnage> personnages = new ArrayList<>();
 
         Personnage chercheurOr;
         chercheurOr = new ChercheurOR();
         personnages.add(chercheurOr);
 
-        int doublonBanque = moteurDuJeux.getBanque().getNbDoublon();
+        int doublonBanque = partie.getBanque().getNbDoublon();
 
         moteurDuJeux.ajouteDoublon(personnages);
 
         assertEquals(1, chercheurOr.getDoublon());
-        assertEquals(doublonBanque - 1, moteurDuJeux.getBanque().getNbDoublon());
+        assertEquals(doublonBanque - 1, partie.getBanque().getNbDoublon());
     }
 
     /**
@@ -111,13 +110,14 @@ public class MoteurDuJeuxTest {
      */
     @Test
     public void testCitePleineTest(){
+
         moteurDuJeux = new MoteurDuJeux(0,2, 1);
- 
+        partie = moteurDuJeux.getPartie();
         // Cite vide
         assertFalse(moteurDuJeux.testCitePleine());
 
         // Cite pleine
-        moteurDuJeux.getJoueurs()[0].getPlateau().setNbBatiment(12);
+        partie.getJoueurs()[0].getPlateau().setNbBatiment(12);
 
         assertTrue(moteurDuJeux.testCitePleine());
 
@@ -128,9 +128,10 @@ public class MoteurDuJeuxTest {
      */
     @Test
     public void calculerPointsVictoiresBatimentsTest(){
-        moteurDuJeux = new MoteurDuJeux(0,3, 0);
 
-        Joueurs[] joueurs = moteurDuJeux.getJoueurs();
+        moteurDuJeux = new MoteurDuJeux(0,3, 0);
+        partie = moteurDuJeux.getPartie();
+        Joueurs[] joueurs = partie.getJoueurs();
               /*
         assertEquals(0, joueurs[0].getPointVictoire());
         */

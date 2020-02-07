@@ -2,16 +2,11 @@ package puertoricotr;
 
 import org.junit.Test;
 import puertoricotr.batiments.Batiment;
-import puertoricotr.batiments.productions.BrulerieCafe;
 import puertoricotr.batiments.productions.PetiteRaffinerieSucre;
 import puertoricotr.batiments.productions.SechoirTabac;
 import puertoricotr.exploitations.Exploitation;
 import puertoricotr.personnages.Batisseur;
 import puertoricotr.personnages.Personnage;
-import puertoricotr.stockageoutilsjeux.Banque;
-import puertoricotr.stockageoutilsjeux.Magasin;
-import puertoricotr.stockageoutilsjeux.Navires;
-import puertoricotr.stockageoutilsjeux.Reserve;
 
 import java.util.ArrayList;
 
@@ -22,54 +17,32 @@ public class BatisseurTest {
 
     @Test
     public void actionTest(){
-
+        Partie partie;
         Joueurs[] joueur;
-        StrategieRandom bot1;
-        StrategieRandom bot2;
 
         PetiteRaffinerieSucre petiteRaffinerieSucre;
         SechoirTabac sechoirTabac;
-        BrulerieCafe brulerieCafe;
-
         ArrayList <Batiment> batiments;
-        ArrayList <Exploitation> plantations;
-        ArrayList <Exploitation> carrieres;
 
-        Magasin magasin;
-        Banque banque;
-        Reserve reserve;
-        ArrayList <Navires> navire;
-
-        plantations = new ArrayList<>();
-        carrieres = new ArrayList<>();
-        batiments = new ArrayList<>();
-        navire = new ArrayList<>();
-        magasin = new Magasin();
-        banque = new Banque(10, 10, 10);
-        reserve = new Reserve(10, 10, 10, 10, 10);
+        partie = new Partie(0,2);
+        batiments = partie.getBatiments();
 
         int i = 0;
-        joueur = new Joueurs[2];
-
-        bot1 = new StrategieRandom();
-        bot2 = new StrategieRandom();
-
-        joueur[0] = new Joueurs("0",bot1);
-        joueur[1] = new Joueurs("1",bot2);
+        joueur = partie.getJoueurs();
 
         Personnage batisseur = new Batisseur();
         int doublon;
 
-        /* Plus de bâtiments disponible
+        /* Bâtiments disponible
          * -------------------------------------------------------------------------------------- */
 
         doublon = joueur[1].getNbDoublon();
-        assertFalse(joueur[1].peutConstruire(batiments));
-        batisseur.action(joueur, i, plantations, carrieres, batiments, magasin, banque, reserve, navire,1);
+        assertTrue(joueur[1].peutConstruire(batiments));
+        batisseur.action(joueur, i, partie,1);
 
-        assertTrue(batiments.isEmpty());
-        assertEquals(doublon, joueur[1].getNbDoublon());
-        assertEquals(0, joueur[1].getPlateau().getNbBatiment());
+        int prixBatiment = joueur[1].getPlateau().getCite()[0].getPrix();
+        assertEquals(doublon - prixBatiment, joueur[1].getNbDoublon());
+        assertEquals(1, joueur[1].getPlateau().getNbBatiment());
 
         /* Le joueur peut construire un bâtiment
          * -------------------------------------------------------------------------------------- */
@@ -83,7 +56,7 @@ public class BatisseurTest {
         assertTrue(petiteRaffinerieSucre.getPrix() <= joueur[1].getNbDoublon());
 
         doublon = joueur[1].getNbDoublon() - petiteRaffinerieSucre.getPrix();
-        batisseur.action(joueur, i, plantations, carrieres, batiments, magasin, banque, reserve, navire,1);
+        batisseur.action(joueur, i, partie,1);
 
 
         assertEquals(doublon, joueur[1].getNbDoublon());
@@ -96,7 +69,7 @@ public class BatisseurTest {
 
 
         doublon = joueur[1].getNbDoublon();
-        batisseur.action(joueur, i, plantations, carrieres, batiments, magasin, banque, reserve, navire,1);
+        batisseur.action(joueur, i, partie,1);
 
         assertEquals(doublon, joueur[1].getNbDoublon());
         assertTrue(joueur[1].getPlateau().possedeBatiment(petiteRaffinerieSucre.getNom()));
@@ -109,16 +82,11 @@ public class BatisseurTest {
 
         doublon = joueur[0].getNbDoublon();
         int reductionPrivilege = 1;
+        batisseur.action(joueur, i, partie,1);
+        int nbBat = joueur[0].getPlateau().getNbBatiment();
+        prixBatiment = joueur[0].getPlateau().getCite()[nbBat - 1].getPrix();
 
-        brulerieCafe = new BrulerieCafe();
-        batiments.add(brulerieCafe);
-
-        int prixCafe = brulerieCafe.getPrix();
-
-        batisseur.action(joueur, i, plantations, carrieres, batiments, magasin, banque, reserve, navire,1);
-
-        assertEquals(doublon - (prixCafe - reductionPrivilege), joueur[0].getNbDoublon());
-        assertTrue(joueur[0].getPlateau().possedeBatiment(brulerieCafe.getNom()));
+        assertEquals(doublon - (prixBatiment - reductionPrivilege), joueur[0].getNbDoublon());
 
         /* Le joueur peut construire un bâtiment et possède 1 carriere occupée
          * -------------------------------------------------------------------------------------- */
@@ -140,7 +108,7 @@ public class BatisseurTest {
 
         int prixTabac = sechoirTabac.getPrix();
 
-        batisseur.action(joueur, i, plantations, carrieres, batiments, magasin, banque, reserve, navire,1);
+        batisseur.action(joueur, i, partie,1);
 
         assertEquals(doublon - (prixTabac - reductionCarriere), joueur[1].getNbDoublon());
         assertTrue(joueur[1].getPlateau().possedeBatiment(sechoirTabac.getNom()));

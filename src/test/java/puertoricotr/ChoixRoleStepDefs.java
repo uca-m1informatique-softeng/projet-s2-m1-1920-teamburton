@@ -15,7 +15,7 @@ public class ChoixRoleStepDefs implements Fr {
     private ChercheurOR chercheurOr;
     private Paysan paysan;
     private Maire maire;
-
+    private Partie partie;
     private ArrayList<Personnage> role;
     private String nomPersonnage;
 
@@ -23,7 +23,8 @@ public class ChoixRoleStepDefs implements Fr {
 
         Etantdonné("un joueur du nom de {string}", (String id) -> {
             bot = new StrategieRandom();
-            joueur = new Joueurs("0", bot);
+            Joueurs joueur;
+            joueur = partie.getJoueurs()[0];
         });
 
         Et("une liste de rôle {string}, {string} et {string}", (String nom1, String nom2, String nom3) -> {
@@ -34,9 +35,10 @@ public class ChoixRoleStepDefs implements Fr {
         });
 
         Quand("{string} choisi le personnage {string}", (String id, String nom) -> {
+            partie = new Partie(0, 2);
             joueur.setIDjoueur(id);
             assertEquals(id, joueur.getIdJoueur());
-            nomPersonnage =  joueur.choixRole(role, 0).getNom();
+            nomPersonnage =  joueur.choixRole(partie, 0).getNom();
             assertEquals(nomPersonnage, chercheurOr.getNom());
         });
 

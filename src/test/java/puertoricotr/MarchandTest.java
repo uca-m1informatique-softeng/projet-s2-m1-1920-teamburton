@@ -21,40 +21,20 @@ public class MarchandTest {
     @Test
     public void actionTest() {
 
+        Partie partie = new Partie(0,2);
         Joueurs[] joueur;
-        StrategieRandom bot1;
-        StrategieRandom bot2;
 
         Marchand marchand;
         Exploitation indigo;
         Map<String, Integer> tonneau;
-
-        ArrayList <Batiment> batiments;
-        ArrayList <Exploitation> plantations;
-        ArrayList <Exploitation> carrieres;
         ArrayList <Navires> navires;
-
         Magasin magasin;
-        Banque banque;
-        Reserve reserve;
 
         int i = 0;
-        joueur = new Joueurs[2];
 
-        bot1 = new StrategieRandom();
-        bot2 = new StrategieRandom();
-
-        joueur[0] = new Joueurs("0",bot1);
-        joueur[1] = new Joueurs("1",bot2);
-
-        plantations = new ArrayList<>();
-        carrieres = new ArrayList<>();
-        batiments = new ArrayList<>();
-        navires = new ArrayList<>();
-        magasin = new Magasin();
-        banque = new Banque(10, 10, 10);
-        reserve = new Reserve(10, 10, 10, 10, 10);
-
+        joueur = partie.getJoueurs();
+        navires = partie.getNavires();
+        magasin = partie.getMagasin();
 
         String tonneauIndigo = "";
         indigo = new Exploitation(Constantes.INDIGO);
@@ -64,7 +44,7 @@ public class MarchandTest {
 
         /* Les joueurs ne possèdent pas de tonneaux
          * -------------------------------------------------------------------------------------- */
-        marchand.action(joueur, i, plantations, carrieres, batiments, magasin, banque, reserve, navires,1);
+        marchand.action(joueur, i, partie,1);
 
         assertEquals(0, joueur[0].getNbTonneauxTotal());
         assertEquals(0, joueur[1].getNbTonneauxTotal());
@@ -84,7 +64,7 @@ public class MarchandTest {
         }
 
 
-        marchand.action(joueur, i, plantations, carrieres, batiments, magasin, banque, reserve, navires,1);
+        marchand.action(joueur, i, partie,1);
 
         assertEquals(1, magasin.getNbTonneau());
         assertEquals(0, joueur[1].getNbTonneauxTotal());
@@ -97,7 +77,7 @@ public class MarchandTest {
 
         /* Le joueur possede un tonneau, mais qui est déjà présent dans le magasin
          * -------------------------------------------------------------------------------------- */
-        marchand.action(joueur, i, plantations, carrieres, batiments, magasin, banque, reserve, navires,1);
+        marchand.action(joueur, i, partie, 1);
         assertTrue(magasin.possedeMarchndise(indigo.getNom()), tonneauIndigo);
         assertEquals(1, magasin.getNbTonneau());
         assertEquals(0, joueur[1].getNbTonneauxTotal());
@@ -111,7 +91,7 @@ public class MarchandTest {
 
 
         int doublonAvantAchat = joueur[0].getNbDoublon();
-        marchand.action(joueur, i, plantations, carrieres, batiments, magasin, banque, reserve, navires,1);
+        marchand.action(joueur, i, partie,1);
 
 
         // Second tonneau ajouté au magasin et tonneau vendu par le joueur

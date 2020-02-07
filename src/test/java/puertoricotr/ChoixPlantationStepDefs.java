@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ChoixPlantationStepDefs implements Fr {
 
+    private Partie partie;
     private StrategieRandom bot;
     private Joueurs[] joueurs;
     private Joueurs joueur;
@@ -42,9 +43,11 @@ public class ChoixPlantationStepDefs implements Fr {
     public ChoixPlantationStepDefs() {
 
         Etantdonné("un autre joueur du nom de {string}", (String id) -> {
-            bot = new StrategieRandom();
+            partie = new Partie(0,2);
+
             joueurs = new Joueurs[1];
-            joueur = new Joueurs("0", bot);
+            joueurs[0] = partie.getJoueurs()[0];
+
             joueurs[0] = joueur;
             joueur.setIDjoueur(id);
 
@@ -85,7 +88,7 @@ public class ChoixPlantationStepDefs implements Fr {
             role = new ArrayList<>();
             paysan = new Paysan();
             role.add(paysan);
-            String choix = joueur.choixRole(role, 0).getNom();
+            String choix = joueur.choixRole(partie, 0).getNom();
             assertEquals(choix, paysan.getNom());
 
         });
@@ -95,7 +98,7 @@ public class ChoixPlantationStepDefs implements Fr {
             assertEquals(id, joueur.getIdJoueur());
 
             ArrayList plantationsTmp = (ArrayList) plantations.clone();
-            paysan.action(joueurs, 0, plantations, carrieres, batiments, magasin, banque, reserve, navire,0);
+            paysan.action(joueurs, 0, partie,0);
 
             plantation = joueur.getPlateau().getIle()[0];
             assertTrue(plantationsTmp.contains(plantation));

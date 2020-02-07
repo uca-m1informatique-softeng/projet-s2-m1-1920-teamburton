@@ -282,4 +282,8 @@ public class Plateau {
         }
         return false;
     }
+
+    public boolean possedeExploitation(){
+        return this.nbExploitation > 0;
+    }
 }

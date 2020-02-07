@@ -15,6 +15,11 @@ public class MoteurDuJeux {
 
     private Partie partie;
 
+
+    public Partie getPartie() {
+        return partie;
+    }
+
     /**
      * Constructeur de la classe
      * @param nbJoueur nombre de joueurs jouable

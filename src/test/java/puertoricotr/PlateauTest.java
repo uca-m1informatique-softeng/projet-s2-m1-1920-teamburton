@@ -12,9 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlateauTest {
     private Plateau plateau;
-    private Exploitation[] ile;
-    private Batiment[] cite;
-
 
     @BeforeEach
     void init(){
@@ -168,6 +165,4 @@ public class PlateauTest {
 
         assertNotNull(plateau.getAffichage());
     }
-
-
 }
