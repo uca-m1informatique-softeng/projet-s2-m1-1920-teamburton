@@ -2,8 +2,8 @@ language: java
 jdk:
  - openjdk11
  
-install:
- - mvn install -DskipTests=true
+install: true
  
 script:
+ - mvn install -DskipTests
  - mvn exec:java
