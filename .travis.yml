@@ -3,8 +3,9 @@ jdk:
 	- openjdk11
 
 install:
-	- mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-
+	- mvn install -DskipTests
+	
 script:
 	- mvn test -B
 	- mvn exec:java
+	
