@@ -1,13 +1,10 @@
 package puertoricotr.personnages;
 
+import puertoricotr.Constantes;
 import puertoricotr.Joueurs;
 import puertoricotr.Partie;
-import puertoricotr.batiments.Batiment;
-import puertoricotr.exploitations.Exploitation;
-import puertoricotr.stockageoutilsjeux.*;
-import puertoricotr.Constantes;
-import sun.java2d.pipe.SpanClipRenderer;
-
+import puertoricotr.stockageoutilsjeux.Banque;
+import puertoricotr.stockageoutilsjeux.Navires;
 import java.util.*;
 
 public class Capitaine extends Personnage {

@@ -13,7 +13,8 @@ import java.util.*;
 /**
  * Classe contenant les élément d'une partie
  */
-public class Partie {
+public class
+Partie {
     private int nbJoueurTotal;
     private Joueurs[] joueurs;
 
