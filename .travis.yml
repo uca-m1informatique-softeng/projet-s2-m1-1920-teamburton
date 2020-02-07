@@ -1,0 +1,11 @@
+language: java
+jdk:
+	- openjdk11
+
+install:
+	- mvn install -DskipTests
+	
+script:
+	- mvn test -B
+	- mvn exec:java
+	
