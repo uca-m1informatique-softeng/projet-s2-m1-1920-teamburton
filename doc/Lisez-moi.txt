@@ -1,0 +1,261 @@
+﻿_______________________________________________________________________________	   
+____________________________________PUERTO_____________________________________     
+_____________________________________RICO______________________________________
+										  
+# ########################################################################### #   
+# Lisez-moi.txt								                                  #
+# Version 0.3 (12 Octobre 2019)                                               #
+# SARIGUZEL Begüm; DIALLO Elhadj Mamadou Foula; JANIN Rémi; PAJANY Allan      #       
+# 1ère Annee - MASTER Informatique - UNICE                                    #        
+# ########################################################################### #
+
+
+===============================================================================
+===========================     PRESENTATION    ===============================
+===============================================================================
+Il s'agit d'un projet de développement du jeux de société "Puerto Rico" où l'on
+devra modéliser les concepts, le moteur ainsi que les robots du jeux. Nous 
+devrons ainsi simuler une partie entre 2 ou plusieurs robots et avoir une visu-
+alistion textuelle du déroulement de la partie.
+
+
+===============================================================================
+=============================     LANCEMENT    ================================
+===============================================================================
+
+OUTILS : Java (JDK) - Maven - Internet 256K
+COMPILATION             : mvn compile
+EXECUTION maven test    : mvn exec:java -Dexec.mainClass=puertoricotr.jeux
+EXECUTION cucumber test : mvn test
+
+===============================================================================
+============================     AVANCEMENT    ================================
+===============================================================================
+_______________________________________________________________________________
+
+
+-------------------------------------------------------------------------------
+RENDU2810:
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+RENDU2010:
+-------------------------------------------------------------------------------
+Dans ce rendu, nous avons implémenté le placement des colons dans un bâtiment
+ou une exploitation. Durant la phase du maire, le bot choisit de façon aléatoire
+de placer ou non ses colons. Le placement des colons se fait d'abord sur les
+plantations s'il y en a et si elles ne sont pas déjà occupées.
+Le rôle marchand et son privilège ont été implémenté ainsi que le magasin qui
+ne fait pour que stocker les marchandises (4 différentes marchandises au total)
+sans être vider après qu'il soit plein.
+Nous avons aussi ajouter les privilèges du paysant et du maire ainsi que la
+prise en charge des bonnus offert par l'hacienda.
+
+Créations:
+    - Classe Carriere héritant de la classe Exploitation
+    - Classe Hacienda héritant de la classe Batiment
+    - Classe Magasin
+    - Classe Marchand
+
+    Ajout d'attribut et de méthodes:
+        - Classe Plateau:
+            + nb_colon_ile/cite
+            + nb_place_cite (place total dans une cité)
+            + Accesseurs
+
+        - Classe Bot:
+            + private String placerColonBatiment/Plantation()
+            + public String placerColon()
+
+        - Classe Joueurs:
+            + public void subColon()
+
+        - Classe Exploitation:
+            + public void addColon()
+            + public boolean estOccupe()
+
+        - Classe BotTest:
+            + Ajout du test pour la méthode choixBatiment
+
+        - Classe Paysan:
+            + public String haciendaBonus(Joueur j, ArrayList elements_1, ArrayList elements_2)
+
+    Ajout de l'affichage du nombre de colon dans les bâtiments et plantations
+    du joueur.
+
+Modifications:
+    Package:
+        + Création de nouveaux packages "exploitations" et déplacemet du package
+          "plantations" à l'intérieur. Modification du nom de classe
+           "Plantation" -> "Exploitation". "exploitations" contient donc le
+           package "plantations" ainsi que la classe Carriere.
+
+    - Classe Joueurs:
+        + Utilisation du setter permettant d'augmenter le nombre de place total
+          pour les colons dans la cite du joueur dans la méthode
+          "addBatiment(Batiment b)".
+        + Pour l'implémentation du rôle marchand, nous avons décidé d'utiliser
+          comme méthode une Hashmap qui stocke tous les tonneaux du joueur avec
+          comme contenu le nom du tonneau de plantation et le nombre de tonneau.
+          (Map<String, Integer> tonneaux)
+
+        + Mofification des méthodes d'ajout et de suppressione de tonneaux
+          "add/subNb_nom(int nbre)" pour prendre en charge le Hashmap.
+
+    - Classe Maire:
+        + Utilisation de la méthode "placerColon()"
+
+    - Classe Paysan:
+        + Modification de la méthode pour prendre en charge le choix d'une
+          carrière et l'utilisation
+
+-------------------------------------------------------------------------------
+RENDU1210:
+-------------------------------------------------------------------------------
+Créations:
+    
+    Classe Producteur:
+        - Permet d'augmenter le nombre de tonneau des marchandises du joueur selon le bâtiment
+          de production lié à la plantation.
+
+    De nouvelles classes liées aux bâtiments:
+        - Raffinerie de sucre, teinturerie d'indigo, brulerie de cafe, sechoir
+          à tabac.
+
+    Classe de test avec Junit pour les classes suivantes:
+        - Batisseur
+        - Paysan
+	    - Producteur
+        - Raffinerie_sucre
+        - Teinturerie_indigo
+        - Brulerie_cafe
+        - Sechoir_tabac
+
+    Ajout de méthodes:
+        - Dans MoteurDuJeux:
+            + public void affichagePlateau(Joueurs j) [Affiche le plateau d'un joueur]
+            + public Joueurs getMax_Pv(Joueurs[] j) [Retourne le joueur avec le plus
+              points de victoires].
+        - Dans Joueurs:
+            + public void addTonneau(String nom_prod)
+
+Modifications:
+    Classe Batiment:
+        - Ajout d'un nouvel attribut "nom_plantation" ainsi que d'un accessseur
+          pour la prise en charge future du rôle de producteur. Ce nom fera
+          le lien entre la plantation et le batiment associé pour permettre
+          de produire.
+
+    Classe de test:
+        - Correction de petites erreurs lors des tests cucumber dans le fichier
+          test "RoleStepDefs" et le fichier feature "bot" qui ne permettaient
+          pas de réussir les tests (WARNING: SKIPPED)
+
+    Classe paysan/batisseur:
+        - Maintenant lors des choix de plantations ou de batiments, un retour
+        d'information affiche précisément le batiment ou la plantation choisi.
+
+    Classe MoteurDuJeux:
+	- Modification de l'affichage:
+        + Ajout de couleurs pour différencier les joueurs dans la méthode affichageScore(Joueur j, int i)
+          [nouvel affichage]
+	    + Ajout d'une règle pour déterminer le gagnant. Cette règle prends en compte les nombres de batîment choisi 	               qui permet de produire une marchandise et ensuite donne un point victoire par plantations. A la fin du jeu,                les joueurs recoivent un point victoire par chaque doublon restant. 
+	    + Affichage le gagnant selon ses points victoires
+
+
+
+-------------------------------------------------------------------------------
+RENDU0410:
+-------------------------------------------------------------------------------
+Créations:
+	Un package batiments
+
+	Classe Batissseur:
+		- Effectue la même action que le paysan, mais avec des bâtiments en
+		  plus d'enlever le prix de ce dernier aux doublons du joueur.
+
+		- Possède les attributs et méthodes:
+			+ nom, prix, colon.
+			+ Accesseurs, méthode abstraite produire(Plantation plantation).
+	
+	Classe Raffinerie de sucre:
+		- Prix initialiser à 3 doublons pour les tests.
+		- La méthode produire ne retourne pour l'instant que le nom du  
+		  tonneau qui sera produit par le producteur.
+		
+		
+Modifications :
+	Classe Personnage:
+		- Changement du parametre du type "ArrayList<Plantations> plantation" 
+	 	  en une "ArrayList elements" pour prendre en compte des types 
+	 	  d'objets différents. Cela implique donc la modification de la
+	 	  méthode "action" pour tous les autres rôles.
+	
+	Classe Moteur de Jeu:
+		- Ajout d'attributs et de méthodes prenant en compte le rôle de 
+		  bâtisseur, le choix des batiments
+			+ ArrayList<Batiment> batiments.
+			+ Batisseur batisseur.
+			
+			+ void subDoublon(int doublon).
+			+ void intBatiment(). N'itialise que 2 raffineries de sucres. 
+			+ void affichageChoixBatiment().
+		
+		- Ajout des nouvelles initialisations dans le constructeur:
+			+ this.batiments = new ArrayList<>().
+			+ initBatiments().
+			
+		- Ajout de l'initialisation du batisseur dans initRoles()	
+			+ personnages.add(batisseur). 
+		
+		- Dans la méthode "tourDeJeu()"
+			+ Ajout de condition prenant en compte le personnage choisit et
+			  l'action à réaliser pour le batisseur et les autres joueurs.
+
+	Classe Joueurs:
+		- Ajout des méthodes:
+			+ void addBatiment(batiment b).
+			+ Batiment choixBatiment(ArrayList<Batiment> batiments).
+		
+	Clase Bot:
+		- Ajout d'une méthodes pour le choix des batiments.
+			+ Batiment choixBatiment(ArrayList< Batiment> batiments).
+	
+	Classe Plateau:
+		- Ajout des méthodes et attribut:
+			+ private Batiment[] cite
+			+ private int nbBatiment
+			
+			+ void addBatiment(Batiment b)
+			
+		- Ajout d'accesseur pour la cite et intialisation dans le
+		  constructeur.
+		  
+	Clase PlantationCafe et PlantationMais:
+		- Remplacement des lettres avec accents "é" et "ä" par les lettres 
+		  ASCII , car non reconnaissable en ligne de commande lors de mes
+		  tests.
+
+-------------------------------------------------------------------------------
+RENDU0210:
+-------------------------------------------------------------------------------
+	- Le rôle de maire à été ajouté.
+	- Des modifications ont été apprortés dans les classes suivantes:
+		+ Bot : Dans la méthode "choixRole", l'ajout du nouveau rôle dans la
+		  liste des rôles "sRole".
+		+ Constante : Ajout de la nouvelle constante de nom "maire".
+		+ Moteur de jeux : * Dans la méthode "initRole", l'ajout de l'intiali-
+		 				     sation du nouveau rôle maire.
+		 				   * Aeration du code pour une meilleure lisibilité
+		 				   * Ajout de nouveaux feedbacks après le choix des
+		 				     rôles ainsi qu'un compteur pour le nombre de tour
+		 				   * Nouvel affichage des scores des joueurs sur une
+		 				     seule ligne. 
+		 				   * Les numeros des bots débutent maintenant au numéro
+		 				     1.
+		 				     
+	- Création d'un feature pour le scénario du choix d'un rôle (test Cucumber)
+	
+Deux nouvelles plantations ont été ajouté, sucre et indigo, mais à cette date
+nous n'attribuons que la plantation de maïs aux paysans lorqu'il est choisi.
+_______________________________________________________________________________
