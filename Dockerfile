@@ -1,6 +1,5 @@
-FROM openjdk:11-jdk
+FROM maven:3.6.2-jdk-11-slim
 
 COPY . /home/Puerto-Rico/docker/java
-RUN javac /home/Puerto-Rico/docker/java/src/main/java/puertoricotr/Jeux.java
-
-CMD ["java", "Jeux"]
+WORKDIR /home/Puerto-Rico/docker/java
+RUN mvn package exec:java
