@@ -5,5 +5,5 @@ jdk:
 install: true
  
 script:
- - mvn install -DskipTests
+ - mvn install
  - mvn exec:java
