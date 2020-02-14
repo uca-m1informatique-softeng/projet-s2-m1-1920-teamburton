@@ -3,7 +3,10 @@ jdk:
  - openjdk11
  
 install: true
+
+docker:
+ - docker build -t puerto-rico .
  
-script:
- - mvn install
- - mvn exec:java
+#script:
+# - mvn install
+# - mvn exec:java
