@@ -5,7 +5,7 @@ jdk:
 install: 
  - mvn install
 
-docker:
+before_script:
  - docker build -t puerto-rico .
  
 script:
