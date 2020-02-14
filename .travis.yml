@@ -9,4 +9,4 @@ docker:
  
 #script:
 # - mvn install
-# - mvn exec:java
+# - mvn exec:javag
