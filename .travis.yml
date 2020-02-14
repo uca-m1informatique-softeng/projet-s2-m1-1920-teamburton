@@ -5,10 +5,10 @@ jdk:
  services:
   - docker
  
-install: true
+install: 
+ - mvn install
  
 docker:
- - mvn install -DskipTests
  - docker build -t puerto-rico .
  
 script:
