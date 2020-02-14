@@ -6,8 +6,8 @@ install:
  - mvn install -DskipTests
 
 before_script:
- - mvn test
  - docker build -t puerto-rico .
  
 script:
+ - mvn test
  - docker run puerto-rico
