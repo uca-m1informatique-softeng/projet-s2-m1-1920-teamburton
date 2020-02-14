@@ -12,4 +12,5 @@ docker:
  - docker build -t puerto-rico .
  
 script:
+ - mvn test
  - docker run puerto-rico
