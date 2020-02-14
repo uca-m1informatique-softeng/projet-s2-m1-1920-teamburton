@@ -3,9 +3,10 @@ jdk:
  - openjdk11
  
 install: 
- - mvn install
+ - mvn install -DskipTests
 
 before_script:
+ - mvn test
  - docker build -t puerto-rico .
  
 script:
