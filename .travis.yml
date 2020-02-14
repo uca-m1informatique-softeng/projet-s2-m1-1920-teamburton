@@ -2,11 +2,14 @@ language: java
 jdk:
  - openjdk11
  
-install: true
-
+ services:
+  - docker
+ 
+install: 
+ - mvn install -DskipTests
+ 
 docker:
  - docker build -t puerto-rico .
  
-#script:
-# - mvn install
-# - mvn exec:java
+script:
+ - docker run puerto-rico
