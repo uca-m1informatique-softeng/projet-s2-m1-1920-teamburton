@@ -1,13 +1,10 @@
 package puertoricotr;
 
 import org.junit.Test;
-import puertoricotr.batiments.Batiment;
 import puertoricotr.exploitations.Exploitation;
 import puertoricotr.personnages.Marchand;
-import puertoricotr.stockageoutilsjeux.Banque;
 import puertoricotr.stockageoutilsjeux.Magasin;
 import puertoricotr.stockageoutilsjeux.Navires;
-import puertoricotr.stockageoutilsjeux.Reserve;
 
 import java.util.ArrayList;
 import java.util.Map;

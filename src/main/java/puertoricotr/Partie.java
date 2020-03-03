@@ -76,21 +76,10 @@ Partie {
 
         // Initialisation des bots
 
-        /*// GARANTIE VS RANDOM
-        joueurs[0] = new Joueurs("BOT Garantie " + 1, (new StrategieGarantie()));
-        joueurs[1] = new Joueurs("BOT Random " + 1, (new StrategieRandom()));*/
-
         // GARANTIE VS AMBITIEUX
         joueurs[0] = new Joueurs("BOT Garantie " + 1, (new StrategieGarantie()));
         joueurs[1] = new Joueurs("BOT Ambitieux " + 1, (new StrategieBatiment()));
         joueurs[1].setAmbitieuse(true);
-        
-        // AMBITIEUX VS AMBITIEUX
-        /*joueurs[0] = new Joueurs("BOT Ambitieux " + 1, (new StrategieDoublon()));
-        joueurs[1] = new Joueurs("BOT Ambitieux " + 2, (new StrategieDoublon()));
-        joueurs[0].setAmbitieuse(true);
-        joueurs[1].setAmbitieuse(true);*/
-
     }
 
 
@@ -263,5 +252,101 @@ Partie {
                 navires.add(new Navires(j));
             }
         }
+    }
+
+    /**
+     * Recherche le joueur possédant le plus grand nombre de points victoires.
+     * @param joueur: liste des joueurs.
+     * @return ce joueur.
+     */
+    public Joueurs joueurMaxPv(ArrayList<Joueurs> joueur){
+        Joueurs joueurMaxPV = joueur.get(0);
+        for (int j = 1; j < joueur.size(); j++){
+            if (joueur.get(j).getNbPointVictoire() > joueurMaxPV.getNbPointVictoire()){
+                joueurMaxPV = joueur.get(j);
+            }
+        }
+        return joueurMaxPV;
+    }
+
+
+    /**
+     * Trie les joueurs par ordre décroissant selon leurs nombre de points victoires
+     * @return la liste de classement des joueurs0
+     */
+    public Joueurs [] classementJoueurs(){
+        Joueurs[] classement = new Joueurs[this.nbJoueurTotal];
+        ArrayList<Joueurs> listeJoueurs = new ArrayList<>(Arrays.asList(this.joueurs));
+        Joueurs jMaxPV;
+
+        for (int j = 0; j < this.nbJoueurTotal; j++){
+            jMaxPV = joueurMaxPv(listeJoueurs);
+            classement[j] = jMaxPV;
+            listeJoueurs.remove(jMaxPV);
+        }
+        return classement;
+    }
+
+    /**
+     * Methode determinant le nombre de joueurs avec le même nombre de points victoires
+     * @return nombre de joueurs avec PV equivalents au premier.
+     */
+    public int partieNulle(){
+        int nbJoueurEq = 0;
+        for (int j = 0; j < this.nbJoueurTotal - 1; j++){
+            if (this.joueurs[j].getNbPointVictoire() == this.joueurs[j + 1].getNbPointVictoire()){
+                nbJoueurEq++;
+            }
+        }
+        return nbJoueurEq;
+    }
+
+    public void resetPartie(){
+        // Banque
+        int nbJoueurTotal = this.nbJoueurTotal;
+        int nbColonBanque = 20 + ((nbJoueurTotal - 1) * 20);
+        int nbPointVictoirebanque = nbJoueurTotal * 25;
+        int nbDoublonBanque = 86;
+
+        Banque banque = this.banque;
+        banque.setNbColon(nbColonBanque);
+        banque.setNbDoublon(nbDoublonBanque);
+        banque.setNbPointVictoire(nbPointVictoirebanque);
+
+        // Réserve
+        Reserve reserve = this.reserve;
+        reserve.setNbMarchandise(Constantes.MAIS, 12);
+        reserve.setNbMarchandise(Constantes.CAFE, 12);
+        reserve.setNbMarchandise(Constantes.TABAC, 12);
+        reserve.setNbMarchandise(Constantes.SUCRE, 12);
+        reserve.setNbMarchandise(Constantes.INDIGO, 12);
+
+        // Personnage
+        for(Personnage p : this.personnages){
+            p.recupereDoublon();
+        }
+
+        // Joueurs
+        Joueurs[] listeJoueurs = this.joueurs;
+        for(int j = 0; j < nbJoueurTotal; j++){
+            listeJoueurs[j].resetJoueur();
+        }
+
+        // Plantations
+        this.pilePlantation.clear();
+        initPilePlantations();
+        initPlantations();
+
+        // Carriere
+        this.carrieres.clear();
+        initCarrieres();
+
+        // Batiments
+        this.batiments.clear();
+        initBatiments();
+
+        // Navires
+        this.navires.clear();
+        initNavires();
     }
 }

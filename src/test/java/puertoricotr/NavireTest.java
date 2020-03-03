@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 import puertoricotr.stockageoutilsjeux.*;
+
 public class NavireTest {
 
     /**

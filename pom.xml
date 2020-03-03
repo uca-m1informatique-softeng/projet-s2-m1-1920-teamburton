@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>TeamRocket</groupId> <!-- CHANGE ME -->
+  <groupId>TeamBurton</groupId> <!-- CHANGE ME -->
   <artifactId>PuertoRico</artifactId> <!-- CHANGE ME -->
   <version>0.1-SNAPSHOT</version> <!-- CHANGE ME -->
 
@@ -23,6 +23,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
       </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -39,9 +40,31 @@
         </configuration>
       </plugin>
 
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>puertoricotr.Jeux</mainClass>
+            </manifest>
+          </archive>
 
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
 
+        <executions>
+          <execution>
+            <id>single</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
 
+      </plugin>
     </plugins>
   </build>
 
@@ -52,6 +75,7 @@
       <version>5.5.2</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>org.junit.vintage</groupId>
       <artifactId>junit-vintage-engine</artifactId>
@@ -65,6 +89,7 @@
       <version>4.7.1</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-junit</artifactId>
@@ -72,15 +97,18 @@
       <scope>test</scope>
     </dependency>
 
-
-
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
       <version>3.0.0</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
 
+    <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+  </dependencies>
 
 </project>
