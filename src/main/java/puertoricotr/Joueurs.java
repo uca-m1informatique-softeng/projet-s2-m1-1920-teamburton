@@ -14,14 +14,23 @@ public class Joueurs {
     private String idJoueur;
     private Plateau plateau;
 
-    private int nbDoublon;
-    private int nbDoublonTotal;
-    private int nbPointVictoire;
-
     private int nbVictoires;
+
+    private int nbDoublon;
+    private int nbPointVictoire;
+    private int nbPVBatiment;
+    private int nbPVChargement;
+    private int nbPointsBonusBatiments;
+
+    private int nbDoublonTotal;
+    private int nbColonTotal;
+    private int nbBatimentTotal;
+    private int nbPlantationTotal;
+    private int nbCarriereTotal;
     private int nbPVBatimentTotal;
     private int nbPVChargementTotal;
-    private int nbPointsBonusBatiments;
+    private int nbPointsBonusBatimentsTotal;
+
     private HashMap<String, Integer> tonneaux;
     private IntelligenceArtificielle intelligenceArtificielle;
     private IntelligenceArtificielle iaDepart;
@@ -38,14 +47,22 @@ public class Joueurs {
         this.iaDepart = strategie;
         this.intelligenceArtificielle = iaDepart;
         this.plateau = new Plateau();
-        this.nbDoublon = 3;
 
-        this.nbPointVictoire = 0;
         this.nbVictoires = 0;
+
+        this.nbDoublon = 3;
+        this.nbColonTotal = 0;
+        this.nbBatimentTotal = 0;
+        this.nbPlantationTotal = 0;
+        this.nbCarriereTotal = 0;
+        this.nbPointVictoire = 0;
+        this.nbPVBatiment = 0;
+        this.nbPVChargement = 0;
+        this.nbPointsBonusBatiments = 0;
+
         this.nbPVBatimentTotal = 0;
         this.nbPVChargementTotal = 0;
         this.nbDoublonTotal = 0;
-        this.nbPointsBonusBatiments = 0;
 
         this.tonneaux = new HashMap<>();
         this.tonneaux.put(Constantes.MAIS, 0);
@@ -67,8 +84,27 @@ public class Joueurs {
         this.idJoueur = idJoueur;
     }
 
+
     /* Stats : nombre de victoire/point de victoire/doublon
      * ------------------------------------------------------------------------------------------ */
+
+    public int getNbColonTotal() {
+        return this.nbColonTotal;
+    }
+
+    public int getNbPlantationTotal() {
+        return this.nbPlantationTotal;
+    }
+
+    public int getNbCarriereTotal() {
+        return this.nbCarriereTotal;
+    }
+
+    public int getNbBatimentTotal() {
+        return this.nbBatimentTotal;
+    }
+
+
     public int getNbVictoires(){
         return this.nbVictoires;
     }
@@ -77,33 +113,46 @@ public class Joueurs {
         this.nbVictoires++;
     }
 
-    public int getNbPVBatimentTotal(){
-        return this.nbPVBatimentTotal;
+    public int getNbPVBatiment() {
+        return this.nbPVBatiment;
     }
 
-    public void addPVBatimentTotal(int nbPVBatiment){
+    public void addPVBatiment(int nbPVBatiment){
+
+        this.nbPVBatiment += nbPVBatiment;
         this.nbPVBatimentTotal += nbPVBatiment;
+    }
+
+    public int getNbPVChargement() {
+        return this.nbPVChargement;
+    }
+
+    public void addPVChargement(int nbPVChargement){
+
+        this.nbPVChargement += nbPVChargement;
+        this.nbPVChargementTotal += nbPVChargement;
+    }
+    public int getNbPVBatimentTotal(){
+        return this.nbPVBatimentTotal;
     }
 
     public int getNbPVChargementTotal(){
         return this.nbPVChargementTotal;
     }
 
-    public void addPVChargementTotal(int nbPVChargement){
-        this.nbPVChargementTotal += nbPVChargement;
+    public int getNbPointsBonusBatiments() {
+        return this.nbPointsBonusBatiments;
     }
 
-    public int getNbPointsBonusBatiments() {
-        return nbPointsBonusBatiments;
+    public int getNbPointsBonusBatimentsTotal() {
+        return nbPointsBonusBatimentsTotal;
     }
 
     public void addNbPointsBonusBatiment(int nbPointsBonus){
         this.nbPointsBonusBatiments += nbPointsBonus;
+        this.nbPointsBonusBatimentsTotal += nbPointsBonus;
     }
 
-    public int getNbDoublonTotal(){
-        return this.nbDoublonTotal;
-    }
 
     /* Plateau
      * ------------------------------------------------------------------------------------------ */
@@ -131,6 +180,10 @@ public class Joueurs {
      * ------------------------------------------------------------------------------------------ */
     public int getNbDoublon() {
         return this.nbDoublon;
+    }
+
+    public int getNbDoublonTotal(){
+        return this.nbDoublonTotal;
     }
 
     public void addDoublon(int nbDoublon) {
@@ -389,9 +442,17 @@ public class Joueurs {
 
     public void resetJoueur(){
         this.intelligenceArtificielle = iaDepart;
+
+        this.nbPlantationTotal += this.plateau.getNbPlantation();
+        this.nbCarriereTotal += this.plateau.getNbCarriere();
+        this.nbBatimentTotal += this.plateau.getNbBatiment();
+        this.nbColonTotal += this.plateau.getNbColon() + this.plateau.getNbColonTotal();
         this.plateau = new Plateau();
+
         this.nbDoublon = 3;
         this.nbPointVictoire = 0;
+        this.nbPVBatiment = 0;
+        this.nbPVChargement = 0;
 
         this.tonneaux.put(Constantes.MAIS, 0);
         this.tonneaux.put(Constantes.INDIGO, 0);

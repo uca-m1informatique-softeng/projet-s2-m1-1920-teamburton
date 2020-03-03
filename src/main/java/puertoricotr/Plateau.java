@@ -13,13 +13,16 @@ public class Plateau {
     private Exploitation[] ile;
     private Batiment[] cite;
     private int nbExploitation;
+    private int nbPlantation;
+    private int nbCarriere;
+
     private int nbBatiment;
     private int nbColonIle;
     private int nbColonCite;
     private int nbPlaceCite;
     private int nbColon;
     private int nbBatimentMauve;
-    private int nbCarriere;
+
     private Map<String, Integer> exploitationsOccupees;
 
     public Plateau(){
@@ -27,6 +30,7 @@ public class Plateau {
         this.cite = new Batiment[12];
         this.exploitationsOccupees = new HashMap<>();
         this.nbExploitation = 0;
+        this.nbPlantation = 0;
         this.nbBatiment = 0;
         this.nbColonIle = 0;
         this.nbColonCite = 0;
@@ -46,6 +50,10 @@ public class Plateau {
 
     public int getNbColon(){
         return this.nbColon;
+    }
+
+    public int getNbPlantation() {
+        return this.nbPlantation;
     }
 
     public int getNbBatiment(){
@@ -164,7 +172,8 @@ public class Plateau {
     public void addExploitation(Exploitation exploitation){
         if(nbExploitation < 12){
             ile[nbExploitation] = exploitation;
-            nbExploitation++;
+            this.nbExploitation++;
+            this.nbPlantation++;
             if (exploitation.getNom().equals(Constantes.CARRIERE)){
                 this.nbCarriere++;
             }
@@ -174,7 +183,7 @@ public class Plateau {
     public void addBatiment(Batiment batiment){
         if(nbBatiment < 12){
             cite[nbBatiment] = batiment;
-            nbBatiment++;
+            this.nbBatiment++;
             if (batiment.getCouleur().equals("Mauve")){
                 this.nbBatimentMauve++;
             }
