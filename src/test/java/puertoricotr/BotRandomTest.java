@@ -38,7 +38,7 @@ public class BotRandomTest
     @BeforeEach
     void init(){
         bot = new StrategieRandom();
-        partie = new Partie(0, 2);
+        partie = new Partie(0, 2, new ServeurStats());
         joueur = partie.getJoueurs()[0];
         joueur.setIntelligenceArtificielle(bot);
         when(rand.nextInt(anyInt())).thenReturn(0,0, 1);

@@ -16,7 +16,7 @@ public class PaysanTest {
     @Test
     public void actionTest(){
 
-        Partie partie = new Partie(0,2);
+        Partie partie = new Partie(0,2, new ServeurStats());
         Joueurs[] joueur;
 
         ArrayList <Batiment> batiments;

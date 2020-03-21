@@ -102,7 +102,7 @@ public class Capitaine extends Personnage {
 
         int nbJ = 0;
         while(nbJ < joueurs.length){
-            if (joueurs[j].getNbTonneauxTotal() == 0) {
+            if (joueurs[j].getNbTonneauxActuel() == 0) {
                 feedback.append("\n<" + joueurs[j].getIdJoueur() + "> ne possède aucun tonneaux et "
                                       + "il ne peut rien charger.\n");
             }

@@ -11,6 +11,21 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class StrategieContre implements  IntelligenceArtificielle {
+    private String nomBot;
+    private String nomStrategie;
+
+    public StrategieContre(){
+        this.nomBot = "BOT Contre";
+        this.nomStrategie = "Contre";
+    }
+
+    public String getNomBot() {
+        return nomBot;
+    }
+
+    public String getNomStrategie() {
+        return nomStrategie;
+    }
 
     /**
      * Choisi de rôles suivant une chaine précise (max Pv)  parmis les roles disponibles
@@ -50,7 +65,7 @@ public class StrategieContre implements  IntelligenceArtificielle {
         }
 
         // Si on possède des tonneaux
-        if (nbTonneauxTotal > 1 || nbTonneauxTotal > joueurs[0].getNbTonneauxTotal()) {
+        if (nbTonneauxTotal > 1 || nbTonneauxTotal > joueurs[0].getNbTonneauxActuel()) {
             strategie = Arrays.asList(tableauPersonnage).indexOf(Constantes.CAPITAINE);
         }
 
@@ -183,7 +198,7 @@ public class StrategieContre implements  IntelligenceArtificielle {
                         }
                     }
 
-                    else if (navire.estVide() && joueurs[0].getNbTonneauxTotal() > 0) {
+                    else if (navire.estVide() && joueurs[0].getNbTonneauxActuel() > 0) {
                         Map<String, Integer> tonneauJ = joueurs[0].getTonneauxProduits();
                         for (String nomTonneauJ1 : tonneaux.keySet()) {
                             if (!tonneauJ.containsKey(nomTonneauJ1) && !res.contains(nomTonneauJ1)) {

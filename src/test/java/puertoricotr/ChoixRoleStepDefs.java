@@ -35,7 +35,7 @@ public class ChoixRoleStepDefs implements Fr {
         });
 
         Quand("{string} choisi le personnage {string}", (String id, String nom) -> {
-            partie = new Partie(0, 2);
+            partie = new Partie(0, 2, new ServeurStats());
             joueur.setIDjoueur(id);
             assertEquals(id, joueur.getIdJoueur());
             nomPersonnage =  joueur.choixRole(partie, 0).getNom();

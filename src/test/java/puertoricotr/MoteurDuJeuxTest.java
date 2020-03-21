@@ -1,7 +1,6 @@
 package puertoricotr;
 
 import org.junit.jupiter.api.Test;
-import puertoricotr.batiments.productions.TeinturerieIndigo;
 import puertoricotr.personnages.ChercheurOR;
 import puertoricotr.personnages.Personnage;
 
@@ -21,8 +20,9 @@ public class MoteurDuJeuxTest {
     @Test
     public void ajouteDoublonTest(){
 
-        moteurDuJeux = new MoteurDuJeux(0,2, 1);
-        partie = moteurDuJeux.getPartie();
+        this.partie = new Partie(0, 2, new ServeurStats());
+        moteurDuJeux = new MoteurDuJeux(partie,1);
+
         ArrayList<Personnage> personnages = new ArrayList<>();
 
         Personnage chercheurOr;
@@ -35,47 +35,5 @@ public class MoteurDuJeuxTest {
 
         assertEquals(1, chercheurOr.getDoublon());
         assertEquals(doublonBanque - 1, partie.getBanque().getNbDoublon());
-    }
-
-
-    /**
-     * Test méthode citePleine
-     */
-    @Test
-    public void testCitePleineTest(){
-
-        moteurDuJeux = new MoteurDuJeux(0,2, 1);
-        partie = moteurDuJeux.getPartie();
-        // Cite vide
-        assertFalse(moteurDuJeux.testCitePleine());
-
-        // Cite pleine
-        partie.getJoueurs()[0].getPlateau().setNbBatiment(12);
-
-        assertTrue(moteurDuJeux.testCitePleine());
-
-    }
-
-
-    /**
-     * Test méthode citePleine
-     */
-    @Test
-    public void calculerPointsVictoiresBatimentsTest(){
-
-        moteurDuJeux = new MoteurDuJeux(0,2, 1);
-        partie = moteurDuJeux.getPartie();
-        Joueurs[] joueurs = partie.getJoueurs();
-              /*
-        assertEquals(0, joueurs[0].getPointVictoire());
-        */
-
-
-        TeinturerieIndigo teinturerieIndigo = new TeinturerieIndigo();
-        joueurs[0].addBatiment(teinturerieIndigo);
-
-        int pvBat = moteurDuJeux.calculerPvBatiments(joueurs[0]);
-
-        assertEquals(pvBat, teinturerieIndigo.getPointsVicoires());
     }
 }

@@ -12,6 +12,22 @@ import java.util.Map;
 
 public class StrategieBatiment implements IntelligenceArtificielle {
 
+    private String nomBot;
+    private String nomStrategie;
+
+    public StrategieBatiment(){
+        this.nomBot = "BOT Batiment";
+        this.nomStrategie = "Batiment";
+    }
+
+    public String getNomBot() {
+        return nomBot;
+    }
+
+    public String getNomStrategie() {
+        return nomStrategie;
+    }
+
     /**
      * Choisi de rôles suivant une chaine précise (max Pv)  parmis les roles disponibles
      * @return Personnage represantant le role choisi

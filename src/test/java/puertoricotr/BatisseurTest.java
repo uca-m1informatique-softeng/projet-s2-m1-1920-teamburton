@@ -24,7 +24,7 @@ public class BatisseurTest {
         SechoirTabac sechoirTabac;
         ArrayList <Batiment> batiments;
 
-        partie = new Partie(0,2);
+        partie = new Partie(0,2, new ServeurStats());
         batiments = partie.getBatiments();
 
         int i = 0;

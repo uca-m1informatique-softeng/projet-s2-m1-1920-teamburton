@@ -31,6 +31,9 @@ public class Joueurs {
     private int nbPVChargementTotal;
     private int nbPointsBonusBatimentsTotal;
 
+    private int nbTonneaux;
+    private int nbTonneauxTotal;
+
     private HashMap<String, Integer> tonneaux;
     private IntelligenceArtificielle intelligenceArtificielle;
     private IntelligenceArtificielle iaDepart;
@@ -70,6 +73,10 @@ public class Joueurs {
         this.tonneaux.put(Constantes.SUCRE, 0);
         this.tonneaux.put(Constantes.TABAC, 0);
         this.tonneaux.put(Constantes.CAFE, 0);
+
+        this.nbTonneaux = 0;
+        this.nbTonneauxTotal = 0;
+
         this.ambitieuse = false;
     }
 
@@ -283,13 +290,17 @@ public class Joueurs {
         return this.tonneaux;
     }
 
-    public int getNbTonneauxTotal(){
+    public int getNbTonneauxActuel(){
         int nbTonneauxTotal = 0;
         for (int nbr : this.tonneaux.values()){
             nbTonneauxTotal += nbr;
         }
 
         return nbTonneauxTotal;
+    }
+
+    public int getNbTonneauxTotal() {
+        return this.nbTonneauxTotal;
     }
 
     public Map<String, Integer> getTonneauxProduits(){
@@ -317,6 +328,7 @@ public class Joueurs {
      * @param nomProduction Nom du tonneau de production à ajouter.
      */
     public void addTonneau(String nomProduction, int nombre){
+        this.nbTonneaux += nombre;
         switch (nomProduction){
             case Constantes.MAIS:
                 this.addNbMais(nombre);
@@ -371,7 +383,7 @@ public class Joueurs {
      * @return Personnage choisit par le joueur
      */
     public Personnage choixRole(Partie partie, int tour) {
-        return intelligenceArtificielle.choixRole(partie, this.plateau, this.nbDoublon, this.getNbTonneauxTotal(), tour);
+        return intelligenceArtificielle.choixRole(partie, this.plateau, this.nbDoublon, this.getNbTonneauxActuel(), tour);
     }
 
     /**
@@ -454,6 +466,8 @@ public class Joueurs {
         this.nbPVBatiment = 0;
         this.nbPVChargement = 0;
 
+        this.nbTonneauxTotal += this.nbTonneaux;
+        this.nbTonneaux = 0;
         this.tonneaux.put(Constantes.MAIS, 0);
         this.tonneaux.put(Constantes.INDIGO, 0);
         this.tonneaux.put(Constantes.SUCRE, 0);
@@ -497,7 +511,7 @@ public class Joueurs {
                 }
 
                 // Pas assez de tonneau comparer aux autres joueus, on essaie de les contrer
-                else if ((j.getNbTonneauxTotal() > this.getNbTonneauxTotal())){
+                else if ((j.getNbTonneauxActuel() > this.getNbTonneauxActuel())){
                     this.setIntelligenceArtificielle(new StrategieContre());
                 }
 

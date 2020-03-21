@@ -20,7 +20,7 @@ public class ChercheurOrTest {
         Banque banque;
 
 
-        partie = new Partie(0, 2);
+        partie = new Partie(0, 2, new ServeurStats());
         joueur = partie.getJoueurs();
 
         banque = partie.getBanque();

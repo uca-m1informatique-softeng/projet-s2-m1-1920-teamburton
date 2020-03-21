@@ -39,16 +39,19 @@ public class Constantes {
 
     // Contstantes pour les stats
     public static final String NBJOUEURS      = "Nombre de joueurs";
-    public static final String NBPVBAT        = "Points victoires des bâtiments";
-    public static final String NBPVCHARGEMENT = "Points victoires des chargements";
-    public static final String NBPVBONUSBAT   = "Points victoires bonus des batiments";
-    public static final String NBDOUBLON      = "Nombre de doublons";
 
-    public static final String NBPLANTATION   = "Nombre de plantations";
-    public static final String NBCARRIERE     = "Nombre de carrieres";
-    public static final String NBBAT          = "Bâtiments construits";
-    public static final String NBCOLON        = "Nombre de colons";
+    public static final String NBPV           = "POINTS DE VICTOIRE OBTENUS";
+    public static final String NBPVBAT        = "Points de victoire BATIMENTS";
+    public static final String NBPVCHARGEMENT = "Points de victoire CHARGEMENTS";
+    public static final String NBPVBONUSBAT   = "Points de victoire BONUS BATIMENTS";
+    public static final String NBDOUBLONS     = "Nombre de doublons";
 
-    public static final String NBVICTOIRES    = "Nombre de victoires";
-    public static final String PRCTVICTOIRES  = "Pourcentage victoire";
+    public static final String NBBATS         = "Nombre de bâtiments construits";
+    public static final String NBPLANTATIONS  = "Nombre de plantations";
+    public static final String NBCARRIERES    = "Nombre de carrieres";
+    public static final String NBCOLONS       = "Nombre de colons";
+    public static final String NBTONNEAUXTOT  = "Nombre de tonneaux";
+
+    public static final String NBVICTOIRES    = "NOMBRE DE VICTOIRES";
+    public static final String PRCTVICTOIRES  = "POURCENTAGE DE VICTOIRES";
 }

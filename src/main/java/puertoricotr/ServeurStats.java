@@ -4,6 +4,7 @@ import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
+import java.net.ServerSocket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -49,28 +50,31 @@ public class ServeurStats {
             int nbCarriere = joueurs[j].getNbCarriereTotal() / this.idPartie;
             int nbBat = joueurs[j].getNbBatimentTotal() / this.idPartie;
             int nbColon = joueurs[j].getNbColonTotal() / this.idPartie;
+            int nbTonneaux = joueurs[j].getNbTonneauxTotal() / this.idPartie;
 
             int nbDoublon = joueurs[j].getNbDoublonTotal() / this.idPartie;
             int nbPvBat = joueurs[j].getNbPVBatimentTotal() / this.idPartie;
             int nbPvChargement = joueurs[j].getNbPVChargementTotal() / this.idPartie;
             int nbPointBonusBat = joueurs[j].getNbPointsBonusBatimentsTotal() / this.idPartie;
 
+            int nbPv = nbPvBat + nbPointBonusBat + nbPvChargement;
             int nbVictoire = joueurs[j].getNbVictoires();
             float prVictoire = ((float)(joueurs[j].getNbVictoires()) / this.idPartie) * 100;
 
             // Insertions dans un objet joueur
             JSONObject joueursObj = new JSONObject();
             joueursObj.put("nom", joueurs[j].getIdJoueur());
-            joueursObj.put(Constantes.NBPLANTATION, nbPlantation);
-            joueursObj.put(Constantes.NBCARRIERE, nbCarriere);
-            joueursObj.put(Constantes.NBBAT, nbBat);
-            joueursObj.put(Constantes.NBCOLON, nbColon);
+            joueursObj.put(Constantes.NBPLANTATIONS, nbPlantation);
+            joueursObj.put(Constantes.NBCARRIERES, nbCarriere);
+            joueursObj.put(Constantes.NBBATS, nbBat);
+            joueursObj.put(Constantes.NBCOLONS, nbColon);
+            joueursObj.put(Constantes.NBTONNEAUXTOT, nbTonneaux);
+            joueursObj.put(Constantes.NBDOUBLONS, nbDoublon);
 
-            joueursObj.put(Constantes.NBDOUBLON, nbDoublon);
             joueursObj.put(Constantes.NBPVBAT, nbPvBat);
             joueursObj.put(Constantes.NBPVCHARGEMENT, nbPvChargement);
             joueursObj.put(Constantes.NBPVBONUSBAT, nbPointBonusBat);
-
+            joueursObj.put(Constantes.NBPV, nbPv);
             joueursObj.put(Constantes.NBVICTOIRES, nbVictoire);
             joueursObj.put(Constantes.PRCTVICTOIRES, prVictoire);
 
@@ -140,9 +144,10 @@ public class ServeurStats {
     public void afficherResultats(){
 
         JSONParser parser = new JSONParser();
-        String[] clesStats = {Constantes.NBPVCHARGEMENT, Constantes.NBPVBAT, Constantes.NBPVBONUSBAT,
-                              Constantes.NBDOUBLON, Constantes.NBPLANTATION, Constantes.NBCARRIERE,
-                              Constantes.NBBAT, Constantes.NBCOLON, Constantes.NBVICTOIRES, Constantes.PRCTVICTOIRES};
+        String[] clesStats = {Constantes.NBPV, Constantes.NBPVCHARGEMENT, Constantes.NBPVBAT,
+                              Constantes.NBPVBONUSBAT, Constantes.NBDOUBLONS, Constantes.NBBATS,
+                              Constantes.NBPLANTATIONS, Constantes.NBCARRIERES, Constantes.NBCOLONS,
+                              Constantes.NBTONNEAUXTOT, Constantes.NBVICTOIRES, Constantes.PRCTVICTOIRES};
 
         try {
             Object obj = parser.parse(new FileReader(chemin));
@@ -187,7 +192,7 @@ public class ServeurStats {
                     j++;
                 }
                 i++;
-                System.out.println((i % 4 == 0) ? "\n------------------------------" : "" );
+                System.out.println((i % 5 == 0) ? "\n----------------------------------" : "" );
             }
             System.out.println("-------------------------------------------------------------------------------\n");
         }

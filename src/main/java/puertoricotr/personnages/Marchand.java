@@ -50,7 +50,7 @@ public class Marchand extends Personnage {
         int nbJ = 0;
         while(nbJ < joueurs.length){
             // Le joueurs ne possède auccun tonneaux
-            if (joueurs[j].getNbTonneauxTotal() == 0) {
+            if (joueurs[j].getNbTonneauxActuel() == 0) {
                 feedback.append("\n<" + joueurs[j].getIdJoueur() + "> ne possède aucun tonneaux.\n");
             }
 

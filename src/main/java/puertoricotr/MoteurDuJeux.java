@@ -5,6 +5,9 @@ import puertoricotr.exploitations.Exploitation;
 import puertoricotr.personnages.*;
 import puertoricotr.stockageoutilsjeux.Navires;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.*;
 
 /**
@@ -13,24 +16,24 @@ import java.util.*;
 public class MoteurDuJeux {
 
     private Partie partie;
-    private ServeurStats serveurStats;
-    public Partie getPartie() {
-        return partie;
-    }
+
 
     /**
      * Constructeur de la classe
-     * @param nbJoueur nombre de joueurs jouable
-     * @param nbBot nombre de joueurs non jouable (bot)
+
      */
-    public MoteurDuJeux(int nbJoueur, int nbBot, int nbPartie){
-        partie = new Partie(nbJoueur, nbBot);
-        serveurStats = new ServeurStats();
+    public MoteurDuJeux(Partie partie, int nbPartie){
+        this.partie = partie;
         lancerParties(nbPartie);
     }
 
+
     /* ==================================   Autres méthodes   ===================================
      * ========================================================================================== */
+
+    public Partie getPartie() {
+        return this.partie;
+    }
 
     /**
      * Ajoute un doublon a chaque personnage present dans la liste
@@ -43,76 +46,6 @@ public class MoteurDuJeux {
                 personnage.addDoublon();
             }
         }
-    }
-
-
-    /**
-     * Condition de fin de partie vérifiant si toutes les cases de la cité d'un joueur sont occupées
-     * @return true si elles sont toutes occupées, false sinon.
-     */
-    public boolean testCitePleine(){
-        for(int j = 0; j < partie.getNbJoueurTotal(); j++){
-            if(partie.getJoueurs()[j].getPlateau().getNbBatiment() == 12){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Méthode appellée en fin de partie pour calculer les points de victoires reçus par un joueur
-     * selon les bâtiment construit
-     * @param joueurs un joueur
-     * @return le nombre de point de victoire total.
-     */
-    public int calculerPvBatiments(Joueurs joueurs){
-        int nbPointsVictoires = 0;
-
-        for (int b = 0; b < joueurs.getPlateau().getNbBatiment(); b++){
-            nbPointsVictoires += joueurs.getPlateau().getCite()[b].getPointsVicoires();
-        }
-
-        return nbPointsVictoires;
-    }
-
-    /**
-     * Fonction calculant les points bonus de grands bâtiments.
-     * @param nomBatiment : Nom du grand bâtiment.
-     * @param joueur : Le joueur.
-     * @return le nombre de pv.
-     */
-    public int batimentsBonus(String nomBatiment, Joueurs joueur){
-        int nbPvGagne = 0;
-        int nbPlantations = joueur.getPlateau().getNbExploitation();
-        int petitBatOccupe = joueur.getPlateau().getNbBatimentOccupe("Petit");
-        int moyenBatOccupe = joueur.getPlateau().getNbBatimentOccupe("Moyen");
-
-        // Entre 4-7 pv par plantations occupées (9-12)
-        if (nomBatiment.equals(Constantes.RESIDENCE)) {
-            nbPvGagne = (nbPlantations <= 9) ? 4 : nbPlantations - 5;
-        }
-
-        // 1 Pv par 4 Pvs gagnés durant la partie (sans pv bat)
-        else if (nomBatiment.equals(Constantes.DOUANE)){
-            nbPvGagne = joueur.getNbPointVictoire() / 4;
-        }
-
-        // 1 Pv par lot de 3 colons dans l'ile et la cité
-        else if (nomBatiment.equals(Constantes.FORTERESSE)){
-            nbPvGagne = joueur.getPlateau().getNbColonTotal() / 3;
-        }
-
-        // 1 Pv par bâtiments mauves
-        else if (nomBatiment.equals(Constantes.HOTEL)){
-            nbPvGagne = joueur.getPlateau().getNbBatimentMauve();
-        }
-
-        // 1 Pv par petit bat. industriel, 2 Pv par grand bat. industriel
-        else if (nomBatiment.equals(Constantes.GUILDE)){
-            nbPvGagne = petitBatOccupe + 2 * moyenBatOccupe;
-        }
-
-        return nbPvGagne;
     }
 
     /**
@@ -143,7 +76,7 @@ public class MoteurDuJeux {
 
         Personnage personnageChoisi;
 
-        while(partie.getBanque().getNbPointVictoire() > 0 && partie.getBanque().getNbColon() > 0 && !this.testCitePleine()){
+        while(partie.getBanque().getNbPointVictoire() > 0 && partie.getBanque().getNbColon() > 0 && !partie.testCitePleine()){
             i = gouverneur;
             while (partie.getPersonnages().size() > 7 % nbJoueurTotal) {
                 joueurActif = joueurs[i];
@@ -169,7 +102,7 @@ public class MoteurDuJeux {
         for (int j = 0; j< nbJoueurTotal; j++){
 
             // Recuperation des points pour les stats
-            int pvBat = calculerPvBatiments(joueurs[j]);
+            int pvBat = partie.calculerPvBatiments(joueurs[j]);
             joueurs[j].addPVBatiment(pvBat);
             joueurs[j].addPVChargement(joueurs[j].getNbPointVictoire());
 
@@ -177,7 +110,7 @@ public class MoteurDuJeux {
             for (int b = 0; b < joueurs[j].getPlateau().getNbBatiment(); b++) {
                 Batiment batiment = joueurs[j].getPlateau().getCite()[b];
                 if (batiment.estGrand() && batiment.getNbColon() > 0){
-                    int nbPvBonusBatiment = batimentsBonus(batiment.getNom(), joueurs[j]);
+                    int nbPvBonusBatiment = partie.calculerPvBatimentsBonus(batiment.getNom(), joueurs[j]);
                     joueurs[j].addPointVictoire(nbPvBonusBatiment);
                     joueurs[j].addNbPointsBonusBatiment(nbPvBonusBatiment);
                 }
@@ -216,7 +149,7 @@ public class MoteurDuJeux {
         Joueurs joueurActif;
 
         Personnage personnageChoisi;
-        while(partie.getBanque().getNbPointVictoire() > 0 && partie.getBanque().getNbColon() > 0 && !this.testCitePleine()){
+        while(partie.getBanque().getNbPointVictoire() > 0 && partie.getBanque().getNbColon() > 0 && !partie.testCitePleine()){
             System.out.println("=================================================================="
                     + "=========================\n\t\t\t\t\tTOUR n°" + tour + "\n================="
                     + "==========================================================================");
@@ -275,7 +208,7 @@ public class MoteurDuJeux {
         for (int j = 0; j < nbJoueurTotal; j++){
 
             // Recuperation des points pour les stats
-            int pvBat = calculerPvBatiments(joueurs[j]);
+            int pvBat = partie.calculerPvBatiments(joueurs[j]);
             joueurs[j].addPVBatiment(pvBat);
             joueurs[j].addPVChargement(joueurs[j].getNbPointVictoire());
 
@@ -288,7 +221,7 @@ public class MoteurDuJeux {
             for (int b = 0; b < joueurs[j].getPlateau().getNbBatiment(); b++){
                 Batiment batiment = joueurs[j].getPlateau().getCite()[b];
                 if (batiment.estGrand() && batiment.getNbColon() > 0){
-                    int nbPvBonusBatiment = batimentsBonus(batiment.getNom(), joueurs[j]);
+                    int nbPvBonusBatiment = partie.calculerPvBatimentsBonus(batiment.getNom(), joueurs[j]);
                     joueurs[j].addPointVictoire(nbPvBonusBatiment);
                     joueurs[j].addNbPointsBonusBatiment(nbPvBonusBatiment);
                     System.out.println("\033[3" + (j + 2) + "m<" + joueurs[j].getIdJoueur()
@@ -317,7 +250,7 @@ public class MoteurDuJeux {
                 int pvDoublon = joueurs[j].getNbDoublon();
                 joueurs[j].addPointVictoire(pvDoublon);
                 System.out.println("\033[3" + (j + 2) + "m<" + joueurs[j].getIdJoueur()
-                                + ">\033[0m reçoit " + pvDoublon + " point(s) de victoire(s).");
+                        + ">\033[0m reçoit " + pvDoublon + " point(s) de victoire(s).");
             }
             classement = partie.classementJoueurs();
         }
@@ -344,7 +277,7 @@ public class MoteurDuJeux {
         int i = nbParties;
         if(nbParties == 0){
             tourDeJeu();
-            serveurStats.insererStatsPartie(partie);
+            partie.sauvegarderStatsPartie();
             partie.resetPartie();
         }
 
@@ -352,14 +285,14 @@ public class MoteurDuJeux {
 
             while (i > 0){
                 tourDeJeuSansAffichage();
-                serveurStats.insererStatsPartie(partie);
+                partie.sauvegarderStatsPartie();
                 partie.resetPartie();
                 i--;
             }
         }
 
-        serveurStats.insererResultats(partie);
-        serveurStats.afficherResultats();
+        partie.sauvegarderStatsResultats();
+        partie.afficherResultats();
     }
 
 

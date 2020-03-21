@@ -37,12 +37,14 @@ Partie {
     private Banque banque;
     private Reserve reserve;
 
+    private ServeurStats serveurStats;
+    private SecureRandom random;
     /**
      * Constructeur de la classe
      * @param nbJoueur nombre de joueurs jouable
      * @param nbBot nombre de joueurs non jouable (bot)
      */
-    public Partie(int nbJoueur, int nbBot) {
+    public Partie(int nbJoueur, int nbBot, ServeurStats serveurStats) {
         this.nbJoueurTotal = nbJoueur + nbBot;
         this.joueurs = new Joueurs[nbJoueurTotal];
         this.pilePlantation = new Stack<>();
@@ -74,11 +76,14 @@ Partie {
         initBatiments();
         initNavires();
 
+        this.serveurStats = serveurStats;
+        random = new SecureRandom();
+
         // Initialisation des bots
 
         // GARANTIE VS AMBITIEUX
-        joueurs[0] = new Joueurs("BOT Garantie " + 1, (new StrategieGarantie()));
-        joueurs[1] = new Joueurs("BOT Ambitieux " + 1, (new StrategieBatiment()));
+        joueurs[0] = new Joueurs("BOT Garantie " + 1, new StrategieGarantie());
+        joueurs[1] = new Joueurs("BOT Ambitieux " + 1, new StrategieBatiment());
         joueurs[1].setAmbitieuse(true);
     }
 
@@ -129,6 +134,7 @@ Partie {
     public Stack<Exploitation> getPilePlantation(){
         return this.pilePlantation;
     }
+
 
     /* ==================================   Initialisations   ===================================
      * ========================================================================================== */
@@ -254,6 +260,9 @@ Partie {
         }
     }
 
+    /* ==================================   Autres méthodes   ===================================
+     * ========================================================================================== */
+
     /**
      * Recherche le joueur possédant le plus grand nombre de points victoires.
      * @param joueur: liste des joueurs.
@@ -274,18 +283,33 @@ Partie {
      * Trie les joueurs par ordre décroissant selon leurs nombre de points victoires
      * @return la liste de classement des joueurs0
      */
-    public Joueurs [] classementJoueurs(){
+    public Joueurs [] classementJoueurs() {
         Joueurs[] classement = new Joueurs[this.nbJoueurTotal];
         ArrayList<Joueurs> listeJoueurs = new ArrayList<>(Arrays.asList(this.joueurs));
         Joueurs jMaxPV;
 
-        for (int j = 0; j < this.nbJoueurTotal; j++){
+        for (int j = 0; j < this.nbJoueurTotal; j++) {
             jMaxPV = joueurMaxPv(listeJoueurs);
             classement[j] = jMaxPV;
             listeJoueurs.remove(jMaxPV);
         }
         return classement;
     }
+
+    /**
+     * Condition de fin de partie vérifiant si toutes les cases de la cité d'un joueur sont occupées
+     * @return true si elles sont toutes occupées, false sinon.
+     */
+    public boolean testCitePleine(){
+        for(int j = 0; j < this.nbJoueurTotal; j++){
+            if(this.joueurs[j].getPlateau().getNbBatiment() == 12){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     /**
      * Methode determinant le nombre de joueurs avec le même nombre de points victoires
@@ -299,6 +323,62 @@ Partie {
             }
         }
         return nbJoueurEq;
+    }
+
+    /**
+     * Fonction calculant les points bonus de grands bâtiments.
+     * @param nomBatiment : Nom du grand bâtiment.
+     * @param joueur : Le joueur.
+     * @return le nombre de pv.
+     */
+    public int calculerPvBatimentsBonus(String nomBatiment, Joueurs joueur){
+        int nbPvGagne = 0;
+        int nbPlantations = joueur.getPlateau().getNbExploitation();
+        int petitBatOccupe = joueur.getPlateau().getNbBatimentOccupe("Petit");
+        int moyenBatOccupe = joueur.getPlateau().getNbBatimentOccupe("Moyen");
+
+        // Entre 4-7 pv par plantations occupées (9-12)
+        if (nomBatiment.equals(Constantes.RESIDENCE)) {
+            nbPvGagne = (nbPlantations <= 9) ? 4 : nbPlantations - 5;
+        }
+
+        // 1 Pv par 4 Pvs gagnés durant la partie (sans pv bat)
+        else if (nomBatiment.equals(Constantes.DOUANE)){
+            nbPvGagne = joueur.getNbPointVictoire() / 4;
+        }
+
+        // 1 Pv par lot de 3 colons dans l'ile et la cité
+        else if (nomBatiment.equals(Constantes.FORTERESSE)){
+            nbPvGagne = joueur.getPlateau().getNbColonTotal() / 3;
+        }
+
+        // 1 Pv par bâtiments mauves
+        else if (nomBatiment.equals(Constantes.HOTEL)){
+            nbPvGagne = joueur.getPlateau().getNbBatimentMauve();
+        }
+
+        // 1 Pv par petit bat. industriel, 2 Pv par grand bat. industriel
+        else if (nomBatiment.equals(Constantes.GUILDE)){
+            nbPvGagne = petitBatOccupe + 2 * moyenBatOccupe;
+        }
+
+        return nbPvGagne;
+    }
+
+    /**
+     * Méthode appellée en fin de partie pour calculer les points de victoires reçus par un joueur
+     * selon les bâtiment construit
+     * @param joueurs un joueur
+     * @return le nombre de point de victoire total.
+     */
+    public int calculerPvBatiments(Joueurs joueurs){
+        int nbPointsVictoires = 0;
+
+        for (int b = 0; b < joueurs.getPlateau().getNbBatiment(); b++){
+            nbPointsVictoires += joueurs.getPlateau().getCite()[b].getPointsVicoires();
+        }
+
+        return nbPointsVictoires;
     }
 
     public void resetPartie(){
@@ -348,5 +428,18 @@ Partie {
         // Navires
         this.navires.clear();
         initNavires();
+    }
+
+
+    public void sauvegarderStatsPartie(){
+        serveurStats.insererStatsPartie(this);
+    }
+
+    public void sauvegarderStatsResultats(){
+        serveurStats.insererResultats(this);
+    }
+
+    public void afficherResultats(){
+        serveurStats.afficherResultats();
     }
 }

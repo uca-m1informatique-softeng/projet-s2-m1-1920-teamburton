@@ -18,7 +18,7 @@ public class MarchandTest {
     @Test
     public void actionTest() {
 
-        Partie partie = new Partie(0,2);
+        Partie partie = new Partie(0,2, new ServeurStats());
         Joueurs[] joueur;
 
         Marchand marchand;
@@ -64,7 +64,7 @@ public class MarchandTest {
         marchand.action(joueur, i, partie,1);
 
         assertEquals(1, magasin.getNbTonneau());
-        assertEquals(0, joueur[1].getNbTonneauxTotal());
+        assertEquals(0, joueur[1].getNbTonneauxActuel());
 
         // Correspondance du nom
         assertTrue(magasin.possedeMarchndise(indigo.getNom()), tonneauIndigo);
@@ -77,7 +77,7 @@ public class MarchandTest {
         marchand.action(joueur, i, partie, 1);
         assertTrue(magasin.possedeMarchndise(indigo.getNom()), tonneauIndigo);
         assertEquals(1, magasin.getNbTonneau());
-        assertEquals(0, joueur[1].getNbTonneauxTotal());
+        assertEquals(0, joueur[1].getNbTonneauxActuel());
 
 
         /* Privilège du joueur
@@ -86,17 +86,14 @@ public class MarchandTest {
         joueur[0].addTonneau(Constantes.CAFE, 1);
         int prixCafe = magasin.getPrix(Constantes.CAFE);
 
-
         int doublonAvantAchat = joueur[0].getNbDoublon();
         marchand.action(joueur, i, partie,1);
 
-
         // Second tonneau ajouté au magasin et tonneau vendu par le joueur
         assertEquals(2, magasin.getNbTonneau());
-        assertEquals(0, joueur[0].getNbTonneauxTotal());
+        assertEquals(0, joueur[0].getNbTonneauxActuel());
 
         // Doublons joueur incrémenté + doublon privilège
         assertEquals(joueur[0].getNbDoublon(), doublonAvantAchat + prixCafe + 1);
-
     }
 }

@@ -15,9 +15,21 @@ import java.util.Map;
 public class StrategieRandom implements IntelligenceArtificielle{
 
     private SecureRandom random;
+    private String nomBot;
+    private String nomStrategie;
 
     public StrategieRandom(){
+        this.nomBot = "BOT Batiment";
+        this.nomStrategie = "Batiment";
         random = new SecureRandom();
+    }
+
+    public String getNomBot() {
+        return nomBot;
+    }
+
+    public String getNomStrategie() {
+        return nomStrategie;
     }
 
     public void setRandom(SecureRandom rand){

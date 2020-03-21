@@ -11,6 +11,21 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class StrategieDoublon implements IntelligenceArtificielle {
+    private String nomBot;
+    private String nomStrategie;
+
+    public StrategieDoublon(){
+        this.nomBot = "BOT Doublon";
+        this.nomStrategie = "Doublon";
+    }
+
+    public String getNomBot() {
+        return nomBot;
+    }
+
+    public String getNomStrategie() {
+        return nomStrategie;
+    }
 
     /**
      * Choisi de rôles suivant une chaine précise (max Pv)  parmis les roles disponibles
