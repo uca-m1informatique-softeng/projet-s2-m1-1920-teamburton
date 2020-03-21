@@ -15,8 +15,8 @@ public class StrategieDoublon implements IntelligenceArtificielle {
     private String nomStrategie;
 
     public StrategieDoublon(){
-        this.nomBot = "BOT Doublon";
-        this.nomStrategie = "Doublon";
+        this.nomStrategie = Constantes.SDOUBLON;
+        this.nomBot = "BOT " + this.nomStrategie;
     }
 
     public String getNomBot() {

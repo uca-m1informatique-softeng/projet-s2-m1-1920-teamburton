@@ -15,8 +15,8 @@ public class StrategieGarantie implements IntelligenceArtificielle {
     private String nomStrategie;
 
     public StrategieGarantie(){
-        this.nomBot = "BOT Garantie";
-        this.nomStrategie = "Garantie";
+        this.nomStrategie = Constantes.SGARANTIE;
+        this.nomBot = "BOT " + this.nomStrategie;
     }
 
     public String getNomBot() {
@@ -26,6 +26,7 @@ public class StrategieGarantie implements IntelligenceArtificielle {
     public String getNomStrategie() {
         return nomStrategie;
     }
+
     /**
      * Choisi de rôles suivant une chaine précise (max Pv)  parmis les roles disponibles
      * @return Personnage represantant le role choisi

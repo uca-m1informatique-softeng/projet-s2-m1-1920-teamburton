@@ -15,8 +15,8 @@ public class StrategieContre implements  IntelligenceArtificielle {
     private String nomStrategie;
 
     public StrategieContre(){
-        this.nomBot = "BOT Contre";
-        this.nomStrategie = "Contre";
+        this.nomStrategie = Constantes.SCONTRE;
+        this.nomBot = "BOT " + this.nomStrategie;
     }
 
     public String getNomBot() {

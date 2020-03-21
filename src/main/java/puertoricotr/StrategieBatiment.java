@@ -16,8 +16,8 @@ public class StrategieBatiment implements IntelligenceArtificielle {
     private String nomStrategie;
 
     public StrategieBatiment(){
-        this.nomBot = "BOT Batiment";
-        this.nomStrategie = "Batiment";
+        this.nomStrategie = Constantes.SBATIMENT;
+        this.nomBot = "BOT " + this.nomStrategie;
     }
 
     public String getNomBot() {

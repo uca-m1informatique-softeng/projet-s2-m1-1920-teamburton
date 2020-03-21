@@ -39,6 +39,7 @@ Partie {
 
     private ServeurStats serveurStats;
     private SecureRandom random;
+
     /**
      * Constructeur de la classe
      * @param nbJoueur nombre de joueurs jouable
@@ -82,7 +83,7 @@ Partie {
         // Initialisation des bots
 
         // GARANTIE VS AMBITIEUX
-        joueurs[0] = new Joueurs("BOT Garantie " + 1, new StrategieGarantie());
+        joueurs[0] = new Joueurs("BOT Garantie " + 1, new StrategieTour());
         joueurs[1] = new Joueurs("BOT Ambitieux " + 1, new StrategieBatiment());
         joueurs[1].setAmbitieuse(true);
     }
@@ -380,6 +381,18 @@ Partie {
 
         return nbPointsVictoires;
     }
+
+    /**
+     * Méthode permettant de mettre à jour la stratégie de l'IA Ambitieuse durant la partie
+     */
+    public void majStrategie(){
+        for (Joueurs j: this.joueurs){
+            if (j.estAmbitieux()){
+                j.changerStrategie(this);
+            }
+        }
+    }
+
 
     public void resetPartie(){
         // Banque

@@ -19,8 +19,8 @@ public class StrategieRandom implements IntelligenceArtificielle{
     private String nomStrategie;
 
     public StrategieRandom(){
-        this.nomBot = "BOT Batiment";
-        this.nomStrategie = "Batiment";
+        this.nomStrategie = Constantes.SRANDOM;
+        this.nomBot = "BOT " + this.nomStrategie;
         random = new SecureRandom();
     }
 
@@ -40,7 +40,7 @@ public class StrategieRandom implements IntelligenceArtificielle{
      * Choisi un role au hasard parmis les roles disponibles
      * @return Personnage represantant le role choisi
      */
-@Override
+    @Override
     public Personnage choixRole(Partie partie, Plateau plateau, int nbDoublon,
                                 int nbTonneauxTotal ,int tour){
 

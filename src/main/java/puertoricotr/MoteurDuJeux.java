@@ -5,9 +5,6 @@ import puertoricotr.exploitations.Exploitation;
 import puertoricotr.personnages.*;
 import puertoricotr.stockageoutilsjeux.Navires;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.*;
 
 /**
@@ -20,7 +17,6 @@ public class MoteurDuJeux {
 
     /**
      * Constructeur de la classe
-
      */
     public MoteurDuJeux(Partie partie, int nbPartie){
         this.partie = partie;
@@ -48,17 +44,7 @@ public class MoteurDuJeux {
         }
     }
 
-    /**
-     * Méthode permettant de mettre à jour la stratégie de l'IA Ambitieuse durant la partie
-     * @param joueurs liste de joueurs.
-     */
-    public void majStrategie(Joueurs[] joueurs){
-        for (Joueurs j: joueurs){
-            if (j.estAmbitieux()){
-                j.changerStrategie(partie);
-            }
-        }
-    }
+
 
     /* ==================================   Lancement du Jeu   ==================================
      * ========================================================================================== */
@@ -87,7 +73,7 @@ public class MoteurDuJeux {
                 // Actions liées au rôle choisi
                 personnageChoisi.action(joueurs, i, partie, tour);
                 i = (i + 1) % nbJoueurTotal;
-                majStrategie(joueurs);
+                partie.majStrategie();
             }
 
             gouverneur = (gouverneur + 1) % nbJoueurTotal;
@@ -190,7 +176,7 @@ public class MoteurDuJeux {
                 System.out.print("\n" + new String(new char[91]).replace("\0", "="));
 
                 i = (i + 1) % nbJoueurTotal;
-                majStrategie(joueurs);
+                partie.majStrategie();
             }
             gouverneur = (gouverneur + 1) % nbJoueurTotal;
 
