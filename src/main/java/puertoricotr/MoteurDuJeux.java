@@ -20,6 +20,7 @@ public class MoteurDuJeux {
      */
     public MoteurDuJeux(Partie partie, int nbPartie){
         this.partie = partie;
+
         lancerParties(nbPartie);
     }
 

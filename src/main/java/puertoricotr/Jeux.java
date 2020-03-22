@@ -9,9 +9,9 @@ public class Jeux {
     public Jeux(){
         ServeurStats serveurStats = new ServeurStats();
 
-        Partie partie = new Partie(0, 2, serveurStats);
+        Partie partie = new Partie(0, 6, serveurStats, Constantes.SAMBITIEUSE);
 
-        new MoteurDuJeux(partie, 1);
+        new MoteurDuJeux(partie, 666);
     }
 
     public static void main(String[] args) {

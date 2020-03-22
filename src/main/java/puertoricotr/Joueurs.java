@@ -500,7 +500,7 @@ public class Joueurs {
                 // Si moins de points de victoire de bâtiments
                 if ((j.getNbPVBatimentTotal() > this.getNbPVBatimentTotal())) {
                     // Assez de doublons, constructions bâtiments
-                    if (this.getNbDoublon() > 2) {
+                    if (this.getNbDoublon() > 1) {
                         this.setIntelligenceArtificielle(new StrategieBatiment());
                     }
 

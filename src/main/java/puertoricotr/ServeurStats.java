@@ -2,6 +2,7 @@ package puertoricotr;
 
 import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
+import sun.security.krb5.internal.crypto.Aes128;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -161,40 +162,45 @@ public class ServeurStats {
             System.out.print("Nombre de parties : " + resulats.get("nbPartie") + "\n\n");
 
             // Affichage noms joueurs
-            System.out.printf("%30s", " ");
+            System.out.printf("%36s", " ");
+            StringBuilder trait = new StringBuilder("------------------------------");
             for (Object listeJoueur : listeJoueurs) {
                 JSONObject joueurObj = (JSONObject) listeJoueur;
-                System.out.printf("%20s", joueurObj.get("nom"));
+                System.out.printf("%20S", joueurObj.get("nom"));
+                for(int t = 0; t < 10 + joueurObj.get("nom").toString().length(); t++){
+                    trait.append("-");
+                }
             }
-            System.out.println("\n-------------------------------------------------------------------------------");
+            System.out.println("\n" + trait);
 
             int i = 0;
-
+            int longueur = 0;
             // Affichages statistiques du jeu
             for (String nomStats : clesStats) {
                 System.out.print(nomStats);
                 String formattage;
-                int longueur = 0;
                 int j = 0;
                 for (Object listeJoueur : listeJoueurs) {
                     JSONObject joueurObj = (JSONObject) listeJoueur;
                     String nomJ = joueurObj.get("nom").toString();
-                    longueur += (nomJ.length() / 2);
+
                     if (j == 0) {
-                        int esp = 50 - (nomStats.length() + nomJ.length() / 2);
-                        formattage = "%" + esp + "s";
+                        int esp = 56 - (nomStats.length() + nomJ.length() / 2);
+                        formattage = "%" + esp + "S";
                     }
 
                     else {
-                        formattage = "%" + (longueur + nomJ.length() - 10) + "s";
+                        formattage = "%" + (longueur + 9 + nomJ.length() / 2) + "S";
                     }
+
                     System.out.printf(formattage, joueurObj.get(nomStats));
+                    longueur = (nomJ.length() / 2);
                     j++;
                 }
                 i++;
                 System.out.println((i % 5 == 0) ? "\n----------------------------------" : "" );
             }
-            System.out.println("-------------------------------------------------------------------------------\n");
+            System.out.println(trait + "\n");
         }
 
         catch (Exception e) {

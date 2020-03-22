@@ -45,7 +45,9 @@ Partie {
      * @param nbJoueur nombre de joueurs jouable
      * @param nbBot nombre de joueurs non jouable (bot)
      */
-    public Partie(int nbJoueur, int nbBot, ServeurStats serveurStats) {
+    public Partie(int nbJoueur, int nbBot, ServeurStats serveurStats, String... nomStrat) {
+        this.random = new SecureRandom();
+
         this.nbJoueurTotal = nbJoueur + nbBot;
         this.joueurs = new Joueurs[nbJoueurTotal];
         this.pilePlantation = new Stack<>();
@@ -62,14 +64,15 @@ Partie {
         this.banque = new Banque(nbDoubonBanque, nbColonBanque, nbPointVictoirebanque);
         this.reserve = new Reserve(12, 12, 12, 12, 12);
 
-        paysan = new Paysan();
-        maire = new Maire();
-        chercheurOr = new ChercheurOR();
-        batisseur = new Batisseur();
-        producteur = new Producteur();
-        marchand = new Marchand();
-        capitaine = new Capitaine();
+        this.paysan = new Paysan();
+        this.maire = new Maire();
+        this.chercheurOr = new ChercheurOR();
+        this.batisseur = new Batisseur();
+        this.producteur = new Producteur();
+        this.marchand = new Marchand();
+        this.capitaine = new Capitaine();
 
+        initBots(nomStrat);
         initRoles();
         initPilePlantations();
         initPlantations();
@@ -78,16 +81,81 @@ Partie {
         initNavires();
 
         this.serveurStats = serveurStats;
-        random = new SecureRandom();
-
-        // Initialisation des bots
-
-        // GARANTIE VS AMBITIEUX
-        joueurs[0] = new Joueurs("BOT Garantie " + 1, new StrategieTour());
-        joueurs[1] = new Joueurs("BOT Ambitieux " + 1, new StrategieBatiment());
-        joueurs[1].setAmbitieuse(true);
     }
 
+    /**
+     * Méthode permettant l'initialisation des bots
+     * @param nomStrategie choisi pour un bot
+     */
+    public void initBots(String... nomStrategie){
+        ArrayList<String> listeNomStrategie = new ArrayList<>();
+        ArrayList<IntelligenceArtificielle> listeIa = new ArrayList<>();
+        ArrayList<Joueurs> listeJoueurs = new ArrayList<>();
+
+        for (int s = 0; s < this.nbJoueurTotal; s++){
+            listeIa.add(new StrategieContre());
+            listeNomStrategie.add(new StrategieContre().getNomBot());
+
+            listeNomStrategie.add(new StrategieGarantie().getNomBot());
+            listeIa.add(new StrategieGarantie());
+
+            listeNomStrategie.add(new StrategieBatiment().getNomBot());
+            listeIa.add(new StrategieBatiment());
+
+            listeNomStrategie.add(new StrategieDoublon().getNomBot());
+            listeIa.add(new StrategieDoublon());
+
+            listeNomStrategie.add(new StrategieMais().getNomBot());
+            listeIa.add(new StrategieMais());
+
+            listeNomStrategie.add(new StrategieRandom().getNomBot());
+            listeIa.add(new StrategieRandom());
+
+            listeNomStrategie.add(new StrategieTour().getNomBot());
+            listeIa.add(new StrategieTour());
+        }
+
+        // Ajout dans une liste temporaire
+        int numStrat = 0;
+        int nbStrat = nomStrategie.length;
+        String nomStrat;
+        for (int j = 0; j < nbJoueurTotal; j++) {
+            int s = this.random.nextInt(listeIa.size());
+
+            // Choix de stratégie aléatoire
+            if (numStrat >= nbStrat) {
+                listeJoueurs.add(new Joueurs(listeNomStrategie.remove(s), listeIa.remove(s)));
+            }
+
+            // Stratégie Ammbitieuse donnée
+            else if (nomStrategie[numStrat].equals(Constantes.SAMBITIEUSE)) {
+                nomStrat = nomStrategie[numStrat];
+                listeJoueurs.add(new Joueurs("BOT " + nomStrat, new StrategieBatiment()));
+                listeJoueurs.get(j).setAmbitieuse(true);
+                numStrat++;
+            }
+
+            // Autre stratégie donnée
+            else{
+                nomStrat = nomStrategie[numStrat];
+                listeJoueurs.add(new Joueurs("BOT " + nomStrat, listeIa.remove(listeNomStrategie.indexOf("BOT " + nomStrat))));
+                numStrat++;
+            }
+        }
+
+        // Ajout dans la liste de joueurs principale
+        for (int j = 0; j < this.nbJoueurTotal; j++){
+            int numJ = 1;
+            this.joueurs[j] = listeJoueurs.remove(0);
+            for (Joueurs listeJoueur : listeJoueurs) {
+                if (this.joueurs[j].getIdJoueur().equals(listeJoueur.getIdJoueur())) {
+                    numJ++;
+                }
+            }
+
+            this.joueurs[j].setIDjoueur(this.joueurs[j].getIdJoueur() + " " + numJ);
+        }
+    }
 
     /* ==================================       Getters       ===================================
      * ========================================================================================== */
