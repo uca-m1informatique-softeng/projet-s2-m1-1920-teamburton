@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: puertoricotr.MoteurDuJeuxTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.1 s - in puertoricotr.MoteurDuJeuxTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.104 s - in puertoricotr.MoteurDuJeuxTest
