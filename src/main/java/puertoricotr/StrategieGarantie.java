@@ -11,6 +11,21 @@ import java.util.*;
  * Classe gérant les bots
  */
 public class StrategieGarantie implements IntelligenceArtificielle {
+    private String nomBot;
+    private String nomStrategie;
+
+    public StrategieGarantie(){
+        this.nomStrategie = Constantes.SGARANTIE;
+        this.nomBot = "BOT " + this.nomStrategie;
+    }
+
+    public String getNomBot() {
+        return nomBot;
+    }
+
+    public String getNomStrategie() {
+        return nomStrategie;
+    }
 
     /**
      * Choisi de rôles suivant une chaine précise (max Pv)  parmis les roles disponibles

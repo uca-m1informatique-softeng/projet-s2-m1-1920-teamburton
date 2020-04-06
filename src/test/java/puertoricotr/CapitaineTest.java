@@ -21,7 +21,7 @@ public class CapitaineTest {
 
         int i = 0;
 
-        partie = new Partie(0,2);
+        partie = new Partie(0,2, new ServeurStats());
         navires = partie.getNavires();
         joueur = partie.getJoueurs();
 
@@ -31,17 +31,17 @@ public class CapitaineTest {
          * -------------------------------------------------------------------------------------- */
         capitaine.action(joueur, i, partie,1);
 
-        assertEquals(0, joueur[0].getNbTonneauxTotal());
+        assertEquals(0, joueur[0].getNbTonneauxActuel());
         assertEquals(0, navires.get(0).getNbRessource());
 
          /* Joueur possede une marchandise à charger sur un navire
          * -------------------------------------------------------------------------------------- */
         joueur[1].addTonneau(Constantes.CAFE, 1);
-        assertEquals(1, joueur[1].getNbTonneauxTotal());
+        assertEquals(1, joueur[1].getNbTonneauxActuel());
 
         capitaine.action(joueur, i,partie,1);
 
-        assertEquals(0, joueur[1].getNbTonneauxTotal());
+        assertEquals(0, joueur[1].getNbTonneauxActuel());
 
         /* Joueur possède 4 marchandises et il charge toutes ses marchandises sur un navire
          * -------------------------------------------------------------------------------------- */

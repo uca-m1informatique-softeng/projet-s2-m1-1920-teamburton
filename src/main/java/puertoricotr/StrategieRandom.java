@@ -15,9 +15,21 @@ import java.util.Map;
 public class StrategieRandom implements IntelligenceArtificielle{
 
     private SecureRandom random;
+    private String nomBot;
+    private String nomStrategie;
 
     public StrategieRandom(){
+        this.nomStrategie = Constantes.SRANDOM;
+        this.nomBot = "BOT " + this.nomStrategie;
         random = new SecureRandom();
+    }
+
+    public String getNomBot() {
+        return nomBot;
+    }
+
+    public String getNomStrategie() {
+        return nomStrategie;
     }
 
     public void setRandom(SecureRandom rand){
@@ -28,7 +40,7 @@ public class StrategieRandom implements IntelligenceArtificielle{
      * Choisi un role au hasard parmis les roles disponibles
      * @return Personnage represantant le role choisi
      */
-@Override
+    @Override
     public Personnage choixRole(Partie partie, Plateau plateau, int nbDoublon,
                                 int nbTonneauxTotal ,int tour){
 

@@ -17,7 +17,7 @@ public class ProducteurTest {
 
     @Test
     public void actionTest() {
-        Partie partie = new Partie(0, 2);
+        Partie partie = new Partie(0, 2, new ServeurStats());
         Joueurs[] joueur;
 
         Producteur producteur;
@@ -46,7 +46,7 @@ public class ProducteurTest {
         assertEquals(0, joueur[1].getPlateau().getNbBatiment());
         assertEquals(0, joueur[1].getPlateau().getNbExploitation());
 
-        assertEquals(0, joueur[1].getNbTonneauxTotal());
+        assertEquals(0, joueur[1].getNbTonneauxActuel());
 
 
         /* Joueurs possede un bâtiment, mais pas de plantations mais ne produit rien
@@ -58,7 +58,7 @@ public class ProducteurTest {
 
         assertEquals(1, joueur[1].getPlateau().getNbBatiment());
         assertEquals(0, joueur[1].getPlateau().getNbExploitation());
-        assertEquals(0, joueur[1].getNbTonneauxTotal());
+        assertEquals(0, joueur[1].getNbTonneauxActuel());
 
 
         /* Joueurs possede bâtiments et plantations du même type

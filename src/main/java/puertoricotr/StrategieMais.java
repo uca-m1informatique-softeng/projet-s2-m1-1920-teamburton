@@ -12,6 +12,21 @@ import java.util.Map;
  * Classe gérant les bots
  */
 public class StrategieMais implements IntelligenceArtificielle{
+    private String nomBot;
+    private String nomStrategie;
+
+    public StrategieMais(){
+        this.nomStrategie = Constantes.SMAIS;
+        this.nomBot = "BOT " + this.nomStrategie;
+    }
+
+    public String getNomBot() {
+        return nomBot;
+    }
+
+    public String getNomStrategie() {
+        return nomStrategie;
+    }
 
     /**
      * Choisi un role au hasard parmis les roles disponibles

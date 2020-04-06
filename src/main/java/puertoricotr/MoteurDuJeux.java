@@ -3,9 +3,8 @@ package puertoricotr;
 import puertoricotr.batiments.Batiment;
 import puertoricotr.exploitations.Exploitation;
 import puertoricotr.personnages.*;
-import puertoricotr.stockageoutilsjeux.Banque;
 import puertoricotr.stockageoutilsjeux.Navires;
-import puertoricotr.stockageoutilsjeux.Reserve;
+
 import java.util.*;
 
 /**
@@ -16,22 +15,22 @@ public class MoteurDuJeux {
     private Partie partie;
 
 
-    public Partie getPartie() {
-        return partie;
-    }
-
     /**
      * Constructeur de la classe
-     * @param nbJoueur nombre de joueurs jouable
-     * @param nbBot nombre de joueurs non jouable (bot)
      */
-    public MoteurDuJeux(int nbJoueur, int nbBot, int nbPartie) {
-        partie = new Partie(nbJoueur, nbBot);
+    public MoteurDuJeux(Partie partie, int nbPartie){
+        this.partie = partie;
+
         lancerParties(nbPartie);
     }
 
+
     /* ==================================   Autres méthodes   ===================================
      * ========================================================================================== */
+
+    public Partie getPartie() {
+        return this.partie;
+    }
 
     /**
      * Ajoute un doublon a chaque personnage present dans la liste
@@ -46,133 +45,7 @@ public class MoteurDuJeux {
         }
     }
 
-    /**
-     * Recherche le joueur possédant le plus grand nombre de points victoires.
-     * @param joueur: liste des joueurs.
-     * @return ce joueur.
-     */
-    public Joueurs joueurMaxPv(ArrayList<Joueurs> joueur){
-        Joueurs joueurMaxPV = joueur.get(0);
-        for (int j = 1; j < joueur.size(); j++){
-            if (joueur.get(j).getNbPointVictoire() > joueurMaxPV.getNbPointVictoire()){
-                joueurMaxPV = joueur.get(j);
-            }
-        }
-        return joueurMaxPV;
-    }
 
-
-    /**
-     * Trie les joueurs par ordre décroissant selon leurs nombre de points victoires
-     * @return la liste de classement des joueurs0
-     */
-    public Joueurs [] classementJoueurs(){
-        Joueurs[] classement = new Joueurs[partie.getNbJoueurTotal()];
-        ArrayList<Joueurs> listeJoueurs = new ArrayList<>(Arrays.asList(partie.getJoueurs()));
-        Joueurs jMaxPV;
-
-        for (int j = 0; j < partie.getNbJoueurTotal(); j++){
-            jMaxPV = joueurMaxPv(listeJoueurs);
-            classement[j] = jMaxPV;
-            listeJoueurs.remove(jMaxPV);
-        }
-        return classement;
-    }
-
-    /**
-     * Methode determinant le nombre de joueurs avec le même nombre de points victoires
-     * @return nombre de joueurs avec PV equivalents au premier.
-     */
-    public int partieNulle(){
-        int nbJoueurEq = 0;
-        for (int j = 0; j < partie.getNbJoueurTotal() - 1; j++){
-            if (partie.getJoueurs()[j].getNbPointVictoire() == partie.getJoueurs()[j + 1].getNbPointVictoire()){
-                nbJoueurEq++;
-            }
-        }
-        return nbJoueurEq;
-    }
-
-    /**
-     * Condition de fin de partie vérifiant si toutes les cases de la cité d'un joueur sont occupées
-     * @return true si elles sont toutes occupées, false sinon.
-     */
-    public boolean testCitePleine(){
-        for(int j = 0; j < partie.getNbJoueurTotal(); j++){
-            if(partie.getJoueurs()[j].getPlateau().getNbBatiment() == 12){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Méthode appellée en fin de partie pour calculer les points de victoires reçus par un joueur
-     * selon les bâtiment construit
-     * @param joueurs un joueur
-     * @return le nombre de point de victoire total.
-     */
-    public int calculerPvBatiments(Joueurs joueurs){
-        int nbPointsVictoires = 0;
-
-        for (int b = 0; b < joueurs.getPlateau().getNbBatiment(); b++){
-            nbPointsVictoires += joueurs.getPlateau().getCite()[b].getPointsVicoires();
-        }
-
-        return nbPointsVictoires;
-    }
-
-    /**
-     * Fonction calculant les points bonus de grands bâtiments.
-     * @param nomBatiment : Nom du grand bâtiment.
-     * @param joueur : Le joueur.
-     * @return le nombre de pv.
-     */
-    public int batimentsBonus(String nomBatiment, Joueurs joueur){
-        int nbPvGagne = 0;
-        int nbPlantations = joueur.getPlateau().getNbExploitation();
-        int petitBatOccupe = joueur.getPlateau().getNbBatimentOccupe("Petit");
-        int moyenBatOccupe = joueur.getPlateau().getNbBatimentOccupe("Moyen");
-
-        // Entre 4-7 pv par plantations occupées (9-12)
-        if (nomBatiment.equals(Constantes.RESIDENCE)) {
-            nbPvGagne = (nbPlantations <= 9) ? 4 : nbPlantations - 5;
-        }
-
-        // 1 Pv par 4 Pvs gagnés durant la partie (sans pv bat)
-        else if (nomBatiment.equals(Constantes.DOUANE)){
-            nbPvGagne = joueur.getNbPointVictoire() / 4;
-        }
-
-        // 1 Pv par lot de 3 colons dans l'ile et la cité
-        else if (nomBatiment.equals(Constantes.FORTERESSE)){
-            nbPvGagne = joueur.getPlateau().getNbColonTotal() / 3;
-        }
-
-        // 1 Pv par bâtiments mauves
-        else if (nomBatiment.equals(Constantes.HOTEL)){
-            nbPvGagne = joueur.getPlateau().getNbBatimentMauve();
-        }
-
-        // 1 Pv par petit bat. industriel, 2 Pv par grand bat. industriel
-        else if (nomBatiment.equals(Constantes.GUILDE)){
-            nbPvGagne = petitBatOccupe + 2 * moyenBatOccupe;
-        }
-
-        return nbPvGagne;
-    }
-
-    /**
-     * Méthode permettant de mettre à jour la stratégie de l'IA Ambitieuse durant la partie
-     * @param joueurs liste de joueurs.
-     */
-    public void majStrategie(Joueurs[] joueurs){
-        for (Joueurs j: joueurs){
-            if (j.estAmbitieux()){
-                j.changerStrategie(partie);
-            }
-        }
-    }
 
     /* ==================================   Lancement du Jeu   ==================================
      * ========================================================================================== */
@@ -190,7 +63,7 @@ public class MoteurDuJeux {
 
         Personnage personnageChoisi;
 
-        while(partie.getBanque().getNbPointVictoire() > 0 && partie.getBanque().getNbColon() > 0 && !this.testCitePleine()){
+        while(partie.getBanque().getNbPointVictoire() > 0 && partie.getBanque().getNbColon() > 0 && !partie.testCitePleine()){
             i = gouverneur;
             while (partie.getPersonnages().size() > 7 % nbJoueurTotal) {
                 joueurActif = joueurs[i];
@@ -201,7 +74,7 @@ public class MoteurDuJeux {
                 // Actions liées au rôle choisi
                 personnageChoisi.action(joueurs, i, partie, tour);
                 i = (i + 1) % nbJoueurTotal;
-                majStrategie(joueurs);
+                partie.majStrategie();
             }
 
             gouverneur = (gouverneur + 1) % nbJoueurTotal;
@@ -216,15 +89,15 @@ public class MoteurDuJeux {
         for (int j = 0; j< nbJoueurTotal; j++){
 
             // Recuperation des points pour les stats
-            int pvBat = calculerPvBatiments(joueurs[j]);
-            joueurs[j].addPVBatimentTotal(pvBat);
-            joueurs[j].addPVChargementTotal(joueurs[j].getNbPointVictoire());
+            int pvBat = partie.calculerPvBatiments(joueurs[j]);
+            joueurs[j].addPVBatiment(pvBat);
+            joueurs[j].addPVChargement(joueurs[j].getNbPointVictoire());
 
             // Points de victoires bonus grand bâtiments
             for (int b = 0; b < joueurs[j].getPlateau().getNbBatiment(); b++) {
                 Batiment batiment = joueurs[j].getPlateau().getCite()[b];
                 if (batiment.estGrand() && batiment.getNbColon() > 0){
-                    int nbPvBonusBatiment = batimentsBonus(batiment.getNom(), joueurs[j]);
+                    int nbPvBonusBatiment = partie.calculerPvBatimentsBonus(batiment.getNom(), joueurs[j]);
                     joueurs[j].addPointVictoire(nbPvBonusBatiment);
                     joueurs[j].addNbPointsBonusBatiment(nbPvBonusBatiment);
                 }
@@ -234,16 +107,16 @@ public class MoteurDuJeux {
             joueurs[j].addPointVictoire(pvBat);
         }
 
-        Joueurs[] classement = classementJoueurs();
+        Joueurs[] classement = partie.classementJoueurs();
 
         // Si partie nulle, ajout des doublons de chaque joueur à leur nombre de points victoires
-        int nbJoueursEq = partieNulle();
+        int nbJoueursEq = partie.partieNulle();
         if (nbJoueursEq > 0) {
             for (int j = 0; j <= nbJoueursEq; j++) {
                 int pvDoublon = joueurs[j].getNbDoublon();
                 joueurs[j].addPointVictoire(pvDoublon);
             }
-            classement = classementJoueurs();
+            classement = partie.classementJoueurs();
         }
 
         Joueurs vainqueur = classement[0];
@@ -263,7 +136,7 @@ public class MoteurDuJeux {
         Joueurs joueurActif;
 
         Personnage personnageChoisi;
-        while(partie.getBanque().getNbPointVictoire() > 0 && partie.getBanque().getNbColon() > 0 && !this.testCitePleine()){
+        while(partie.getBanque().getNbPointVictoire() > 0 && partie.getBanque().getNbColon() > 0 && !partie.testCitePleine()){
             System.out.println("=================================================================="
                     + "=========================\n\t\t\t\t\tTOUR n°" + tour + "\n================="
                     + "==========================================================================");
@@ -304,7 +177,7 @@ public class MoteurDuJeux {
                 System.out.print("\n" + new String(new char[91]).replace("\0", "="));
 
                 i = (i + 1) % nbJoueurTotal;
-                majStrategie(joueurs);
+                partie.majStrategie();
             }
             gouverneur = (gouverneur + 1) % nbJoueurTotal;
 
@@ -322,9 +195,9 @@ public class MoteurDuJeux {
         for (int j = 0; j < nbJoueurTotal; j++){
 
             // Recuperation des points pour les stats
-            int pvBat = calculerPvBatiments(joueurs[j]);
-            joueurs[j].addPVBatimentTotal(pvBat);
-            joueurs[j].addPVChargementTotal(joueurs[j].getNbPointVictoire());
+            int pvBat = partie.calculerPvBatiments(joueurs[j]);
+            joueurs[j].addPVBatiment(pvBat);
+            joueurs[j].addPVChargement(joueurs[j].getNbPointVictoire());
 
             // Points victoires chargement capitaine
             System.out.println("\n\033[3" + (j + 2) + "m<" + joueurs[j].getIdJoueur()
@@ -335,7 +208,7 @@ public class MoteurDuJeux {
             for (int b = 0; b < joueurs[j].getPlateau().getNbBatiment(); b++){
                 Batiment batiment = joueurs[j].getPlateau().getCite()[b];
                 if (batiment.estGrand() && batiment.getNbColon() > 0){
-                    int nbPvBonusBatiment = batimentsBonus(batiment.getNom(), joueurs[j]);
+                    int nbPvBonusBatiment = partie.calculerPvBatimentsBonus(batiment.getNom(), joueurs[j]);
                     joueurs[j].addPointVictoire(nbPvBonusBatiment);
                     joueurs[j].addNbPointsBonusBatiment(nbPvBonusBatiment);
                     System.out.println("\033[3" + (j + 2) + "m<" + joueurs[j].getIdJoueur()
@@ -353,10 +226,10 @@ public class MoteurDuJeux {
                     + ">\033[0m a gagné au total " + joueurs[j].getNbDoublonTotal() + " doublons.");
         }
 
-        Joueurs[] classement = classementJoueurs();
+        Joueurs[] classement = partie.classementJoueurs();
 
         // Si partie nulle, ajout des doublons de chaque joueur à leur nombre de points victoires
-        int nbJoueursEq = partieNulle();
+        int nbJoueursEq = partie.partieNulle();
         if (nbJoueursEq > 0) {
             System.out.println("\nPartie nulle, nouveau calcul des points de victoires en "
                                + "ajoutant le nombre de doublon :\n");
@@ -364,9 +237,9 @@ public class MoteurDuJeux {
                 int pvDoublon = joueurs[j].getNbDoublon();
                 joueurs[j].addPointVictoire(pvDoublon);
                 System.out.println("\033[3" + (j + 2) + "m<" + joueurs[j].getIdJoueur()
-                                + ">\033[0m reçoit " + pvDoublon + " point(s) de victoire(s).");
+                        + ">\033[0m reçoit " + pvDoublon + " point(s) de victoire(s).");
             }
-            classement = classementJoueurs();
+            classement = partie.classementJoueurs();
         }
 
         // Affichage résultats
@@ -387,88 +260,26 @@ public class MoteurDuJeux {
     }
 
 
-    public void resetPartie(){
-        // Banque
-        int nbJoueurTotal = partie.getNbJoueurTotal();
-        int nbColonBanque = 20 + ((nbJoueurTotal - 1) * 20);
-        int nbPointVictoirebanque = nbJoueurTotal * 25;
-        int nbDoublonBanque = 86;
-
-        Banque banque = partie.getBanque();
-        banque.setNbColon(nbColonBanque);
-        banque.setNbDoublon(nbDoublonBanque);
-        banque.setNbPointVictoire(nbPointVictoirebanque);
-
-        // Réserve
-        Reserve reserve = partie.getReserve();
-        reserve.setNbMarchandise(Constantes.MAIS, 12);
-        reserve.setNbMarchandise(Constantes.CAFE, 12);
-        reserve.setNbMarchandise(Constantes.TABAC, 12);
-        reserve.setNbMarchandise(Constantes.SUCRE, 12);
-        reserve.setNbMarchandise(Constantes.INDIGO, 12);
-
-        // Personnage
-        for(Personnage p : partie.getPersonnages()){
-            p.recupereDoublon();
-        }
-
-        // Joueurs
-        for(int j = 0; j < nbJoueurTotal; j++){
-            partie.getJoueurs()[j].resetJoueur();
-        }
-
-        // Plantations
-        partie.getPilePlantation().clear();
-        partie.initPilePlantations();
-        partie.initPlantations();
-
-        // Carriere
-        partie.getCarrieres().clear();
-        partie.initCarrieres();
-
-        // Batiments
-        partie.getBatiments().clear();
-        partie.initBatiments();
-
-        // Navires
-        partie.getNavires().clear();
-        partie.initNavires();
-    }
-
     private void lancerParties(int nbParties){
         int i = nbParties;
-        int nbJoueurTotal = partie.getNbJoueurTotal();
-        Joueurs[] joueurs = partie.getJoueurs();
-
-        if(nbParties == 1){
+        if(nbParties == 0){
             tourDeJeu();
+            partie.sauvegarderStatsPartie();
+            partie.resetPartie();
         }
 
         else{
+
             while (i > 0){
                 tourDeJeuSansAffichage();
-                resetPartie();
+                partie.sauvegarderStatsPartie();
+                partie.resetPartie();
                 i--;
             }
         }
 
-        if(nbParties > 1){
-            for(int j = 0; j < nbJoueurTotal; j++){
-                String idJ = joueurs[j].getIdJoueur();
-                int nbPvBat = joueurs[j].getNbPVBatimentTotal() / nbParties;
-                int nbPvChargement = joueurs[j].getNbPVChargementTotal() / nbParties;
-                int nbDoublon = joueurs[j].getNbDoublonTotal() / nbParties;
-                int nbVictoires = joueurs[j].getNbVictoires();
-                int nbPvBonusBat = joueurs[j].getNbPointsBonusBatiments() / nbParties;
-                //System.out.println(nbVictoires);
-                System.out.println("\n" + idJ + " a gagné " + nbVictoires + " partie(s)\t" + ((float)(nbVictoires) / nbParties * 100) + "%");
-                System.out.println(idJ + " a gagné en moyenne " + nbPvBat + " points de victoires grace a ses batiments.");
-                System.out.println(idJ + " a gagné en moyenne " + nbPvChargement + " points de victoires grace a ses chargements.");
-                System.out.println(idJ + " a gagné en moyenne " + nbPvBonusBat + " points de victoires bonus grands bâtiments.");
-                System.out.println(idJ + " a gagné en moyenne " + nbDoublon + " doublons.");
-            }
-        }
-        System.out.println("\n");
+        partie.sauvegarderStatsResultats();
+        partie.afficherResultats();
     }
 
 

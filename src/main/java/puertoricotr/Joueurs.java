@@ -14,14 +14,26 @@ public class Joueurs {
     private String idJoueur;
     private Plateau plateau;
 
-    private int nbDoublon;
-    private int nbDoublonTotal;
-    private int nbPointVictoire;
-
     private int nbVictoires;
+
+    private int nbDoublon;
+    private int nbPointVictoire;
+    private int nbPVBatiment;
+    private int nbPVChargement;
+    private int nbPointsBonusBatiments;
+
+    private int nbDoublonTotal;
+    private int nbColonTotal;
+    private int nbBatimentTotal;
+    private int nbPlantationTotal;
+    private int nbCarriereTotal;
     private int nbPVBatimentTotal;
     private int nbPVChargementTotal;
-    private int nbPointsBonusBatiments;
+    private int nbPointsBonusBatimentsTotal;
+
+    private int nbTonneaux;
+    private int nbTonneauxTotal;
+
     private HashMap<String, Integer> tonneaux;
     private IntelligenceArtificielle intelligenceArtificielle;
     private IntelligenceArtificielle iaDepart;
@@ -38,14 +50,22 @@ public class Joueurs {
         this.iaDepart = strategie;
         this.intelligenceArtificielle = iaDepart;
         this.plateau = new Plateau();
-        this.nbDoublon = 3;
 
-        this.nbPointVictoire = 0;
         this.nbVictoires = 0;
+
+        this.nbDoublon = 3;
+        this.nbColonTotal = 0;
+        this.nbBatimentTotal = 0;
+        this.nbPlantationTotal = 0;
+        this.nbCarriereTotal = 0;
+        this.nbPointVictoire = 0;
+        this.nbPVBatiment = 0;
+        this.nbPVChargement = 0;
+        this.nbPointsBonusBatiments = 0;
+
         this.nbPVBatimentTotal = 0;
         this.nbPVChargementTotal = 0;
         this.nbDoublonTotal = 0;
-        this.nbPointsBonusBatiments = 0;
 
         this.tonneaux = new HashMap<>();
         this.tonneaux.put(Constantes.MAIS, 0);
@@ -53,6 +73,10 @@ public class Joueurs {
         this.tonneaux.put(Constantes.SUCRE, 0);
         this.tonneaux.put(Constantes.TABAC, 0);
         this.tonneaux.put(Constantes.CAFE, 0);
+
+        this.nbTonneaux = 0;
+        this.nbTonneauxTotal = 0;
+
         this.ambitieuse = false;
     }
 
@@ -67,8 +91,27 @@ public class Joueurs {
         this.idJoueur = idJoueur;
     }
 
+
     /* Stats : nombre de victoire/point de victoire/doublon
      * ------------------------------------------------------------------------------------------ */
+
+    public int getNbColonTotal() {
+        return this.nbColonTotal;
+    }
+
+    public int getNbPlantationTotal() {
+        return this.nbPlantationTotal;
+    }
+
+    public int getNbCarriereTotal() {
+        return this.nbCarriereTotal;
+    }
+
+    public int getNbBatimentTotal() {
+        return this.nbBatimentTotal;
+    }
+
+
     public int getNbVictoires(){
         return this.nbVictoires;
     }
@@ -77,33 +120,46 @@ public class Joueurs {
         this.nbVictoires++;
     }
 
-    public int getNbPVBatimentTotal(){
-        return this.nbPVBatimentTotal;
+    public int getNbPVBatiment() {
+        return this.nbPVBatiment;
     }
 
-    public void addPVBatimentTotal(int nbPVBatiment){
+    public void addPVBatiment(int nbPVBatiment){
+
+        this.nbPVBatiment += nbPVBatiment;
         this.nbPVBatimentTotal += nbPVBatiment;
+    }
+
+    public int getNbPVChargement() {
+        return this.nbPVChargement;
+    }
+
+    public void addPVChargement(int nbPVChargement){
+
+        this.nbPVChargement += nbPVChargement;
+        this.nbPVChargementTotal += nbPVChargement;
+    }
+    public int getNbPVBatimentTotal(){
+        return this.nbPVBatimentTotal;
     }
 
     public int getNbPVChargementTotal(){
         return this.nbPVChargementTotal;
     }
 
-    public void addPVChargementTotal(int nbPVChargement){
-        this.nbPVChargementTotal += nbPVChargement;
+    public int getNbPointsBonusBatiments() {
+        return this.nbPointsBonusBatiments;
     }
 
-    public int getNbPointsBonusBatiments() {
-        return nbPointsBonusBatiments;
+    public int getNbPointsBonusBatimentsTotal() {
+        return nbPointsBonusBatimentsTotal;
     }
 
     public void addNbPointsBonusBatiment(int nbPointsBonus){
         this.nbPointsBonusBatiments += nbPointsBonus;
+        this.nbPointsBonusBatimentsTotal += nbPointsBonus;
     }
 
-    public int getNbDoublonTotal(){
-        return this.nbDoublonTotal;
-    }
 
     /* Plateau
      * ------------------------------------------------------------------------------------------ */
@@ -131,6 +187,10 @@ public class Joueurs {
      * ------------------------------------------------------------------------------------------ */
     public int getNbDoublon() {
         return this.nbDoublon;
+    }
+
+    public int getNbDoublonTotal(){
+        return this.nbDoublonTotal;
     }
 
     public void addDoublon(int nbDoublon) {
@@ -230,13 +290,17 @@ public class Joueurs {
         return this.tonneaux;
     }
 
-    public int getNbTonneauxTotal(){
+    public int getNbTonneauxActuel(){
         int nbTonneauxTotal = 0;
         for (int nbr : this.tonneaux.values()){
             nbTonneauxTotal += nbr;
         }
 
         return nbTonneauxTotal;
+    }
+
+    public int getNbTonneauxTotal() {
+        return this.nbTonneauxTotal;
     }
 
     public Map<String, Integer> getTonneauxProduits(){
@@ -264,6 +328,7 @@ public class Joueurs {
      * @param nomProduction Nom du tonneau de production à ajouter.
      */
     public void addTonneau(String nomProduction, int nombre){
+        this.nbTonneaux += nombre;
         switch (nomProduction){
             case Constantes.MAIS:
                 this.addNbMais(nombre);
@@ -318,7 +383,7 @@ public class Joueurs {
      * @return Personnage choisit par le joueur
      */
     public Personnage choixRole(Partie partie, int tour) {
-        return intelligenceArtificielle.choixRole(partie, this.plateau, this.nbDoublon, this.getNbTonneauxTotal(), tour);
+        return intelligenceArtificielle.choixRole(partie, this.plateau, this.nbDoublon, this.getNbTonneauxActuel(), tour);
     }
 
     /**
@@ -389,10 +454,20 @@ public class Joueurs {
 
     public void resetJoueur(){
         this.intelligenceArtificielle = iaDepart;
+
+        this.nbPlantationTotal += this.plateau.getNbPlantation();
+        this.nbCarriereTotal += this.plateau.getNbCarriere();
+        this.nbBatimentTotal += this.plateau.getNbBatiment();
+        this.nbColonTotal += this.plateau.getNbColon() + this.plateau.getNbColonTotal();
         this.plateau = new Plateau();
+
         this.nbDoublon = 3;
         this.nbPointVictoire = 0;
+        this.nbPVBatiment = 0;
+        this.nbPVChargement = 0;
 
+        this.nbTonneauxTotal += this.nbTonneaux;
+        this.nbTonneaux = 0;
         this.tonneaux.put(Constantes.MAIS, 0);
         this.tonneaux.put(Constantes.INDIGO, 0);
         this.tonneaux.put(Constantes.SUCRE, 0);
@@ -425,7 +500,7 @@ public class Joueurs {
                 // Si moins de points de victoire de bâtiments
                 if ((j.getNbPVBatimentTotal() > this.getNbPVBatimentTotal())) {
                     // Assez de doublons, constructions bâtiments
-                    if (this.getNbDoublon() > 2) {
+                    if (this.getNbDoublon() > 1) {
                         this.setIntelligenceArtificielle(new StrategieBatiment());
                     }
 
@@ -436,7 +511,7 @@ public class Joueurs {
                 }
 
                 // Pas assez de tonneau comparer aux autres joueus, on essaie de les contrer
-                else if ((j.getNbTonneauxTotal() > this.getNbTonneauxTotal())){
+                else if ((j.getNbTonneauxActuel() > this.getNbTonneauxActuel())){
                     this.setIntelligenceArtificielle(new StrategieContre());
                 }
 

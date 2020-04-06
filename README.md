@@ -34,3 +34,9 @@ Pour lancer 1 ou n parties, il faut modifier le 3ème paramètre (nbPartie) lors
 [PAJANY Allan ](https://github.com/Allan06)<br/>
 [Michael Porrecchia ](https://github.com/)<br/>
 [Sébastien DESIDERI ](https://github.com/)<br/>
+
+# RENDU14/02
+
+Nous avons identifié plusieures dépendances entre Joueurs et MoteurduJeux qu'il faudra supprimer afin de pouvoir mettre en place une façade :
+ -Le tableau de Joueurs classement dans MoteurDuJeux
+ -La partie qui est en parametre de plusieures méthodes dans Joueurs

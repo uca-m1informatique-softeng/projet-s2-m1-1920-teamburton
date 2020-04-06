@@ -5,6 +5,7 @@ puertoricotr\ChoixRoleStepDefs.class
 puertoricotr\BotRandomTest.class
 puertoricotr\PlateauTest.class
 puertoricotr\ProducteurTest.class
+puertoricotr\PartieTest.class
 puertoricotr\ChercheurOrTest.class
 puertoricotr\MarchandTest.class
 puertoricotr\CapitaineTest.class

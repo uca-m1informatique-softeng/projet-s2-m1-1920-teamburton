@@ -24,7 +24,7 @@ public class JoueursTest {
 
     void init(){
 
-        partie = new Partie(0,2);
+        partie = new Partie(0,2, new ServeurStats());
         joueur = partie.getJoueurs()[0];
     }
 

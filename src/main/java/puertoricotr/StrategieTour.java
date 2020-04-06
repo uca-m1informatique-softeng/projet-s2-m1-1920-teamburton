@@ -16,12 +16,22 @@ import java.util.Map;
 public class StrategieTour implements IntelligenceArtificielle{
 
     private SecureRandom random;
+    private String nomBot;
+    private String nomStrategie;
 
-    /**
-     * Constructeur
-     */
     public StrategieTour(){
+        this.nomStrategie = Constantes.STOUR;
+        this.nomBot = "BOT " + this.nomStrategie;
+
         random = new SecureRandom();
+    }
+
+    public String getNomBot() {
+        return nomBot;
+    }
+
+    public String getNomStrategie() {
+        return nomStrategie;
     }
 
     public void setRandom(SecureRandom rand){

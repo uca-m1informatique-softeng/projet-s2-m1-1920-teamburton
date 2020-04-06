@@ -44,7 +44,7 @@ public class ChoixBatimentStepDefs implements Fr {
     public ChoixBatimentStepDefs() {
 
         Etantdonné("le joueur du nom de {string}", (String id) -> {
-            partie = new Partie(0, 2);
+            partie = new Partie(0, 2, new ServeurStats());
             joueurs[0] = partie.getJoueurs()[0];
             joueurs = new Joueurs[1];
             joueurs[0] = joueur;

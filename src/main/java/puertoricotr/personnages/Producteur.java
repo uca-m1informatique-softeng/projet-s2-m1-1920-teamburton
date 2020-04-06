@@ -82,7 +82,7 @@ public class Producteur extends Personnage {
         }
 
         // Privilège
-        if (numJ == 0 && joueur.getNbTonneauxTotal() > 0 && !tonneauxProduits.isEmpty()){
+        if (numJ == 0 && joueur.getNbTonneauxActuel() > 0 && !tonneauxProduits.isEmpty()){
             tonneauChoisi = joueur.choixTonneau(partie, this.nom, joueur.getTonneauxProduits(), partie.getNavires().get(0));
             if (reserve.getNbMarchandise(tonneauChoisi) > 0) {
                 reserve.prendreMarchandise(tonneauChoisi, 1);
