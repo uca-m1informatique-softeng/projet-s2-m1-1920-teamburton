@@ -2,7 +2,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-<<<<<<< HEAD
   <groupId>TeamRocket</groupId>
   <artifactId>PuertoRico</artifactId>
   <packaging>pom</packaging>
@@ -12,11 +11,6 @@
     <module>Serveur</module>
     <module>Moteur</module>
   </modules>
-=======
-  <groupId>TeamBurton</groupId> <!-- CHANGE ME -->
-  <artifactId>PuertoRico</artifactId> <!-- CHANGE ME -->
-  <version>0.1-SNAPSHOT</version> <!-- CHANGE ME -->
->>>>>>> origin
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,8 +56,6 @@
             </manifest>
           </archive>
 
-<<<<<<< HEAD
-=======
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
@@ -80,7 +72,6 @@
         </executions>
 
       </plugin>
->>>>>>> origin
     </plugins>
   </build>
 
@@ -120,9 +111,6 @@
       <scope>test</scope>
     </dependency>
 
-<<<<<<< HEAD
-</project>
-=======
     <dependency>
       <groupId>com.googlecode.json-simple</groupId>
       <artifactId>json-simple</artifactId>
@@ -131,4 +119,4 @@
   </dependencies>
 
 </project>
->>>>>>> origin
+
