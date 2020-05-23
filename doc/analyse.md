@@ -5,7 +5,7 @@
 - *Points faibles*
 
 ### DESCRIPTION
-    - Dans ce projet, il est question pour un premier temps de reprendre la version du projet de developpement du premier semestre, le decouper en deux parties, une partie moteur du jeu et une partie serveur de stat. Dans un second temps, Brancher Travis sur le projet , dockerisé le projet et mettre en place des webs services avec Spring boot.
+ *Dans ce projet, il est question pour un premier temps de reprendre la version du projet de developpement du premier semestre, le decouper en deux parties, une partie moteur du jeu et une partie serveur de stat. Dans un second temps, Brancher Travis sur le projet , dockerisé le projet et mettre en place des webs services avec Spring boot.*
   
 ## PARTICIPATION DES MEMBRES DU GROUPES
 
