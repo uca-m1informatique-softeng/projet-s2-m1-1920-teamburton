@@ -17,7 +17,7 @@
             configuration  des postes de travail</br>
             Installation de Docker</br>
             Mise en place du conteneur Docker et son implémentation dans Travis</br>
-  <strong>JANIN Rémi<strong></br>
+  <strong>JANIN Rémi</strong></br>
             configuration  des postes de travail</br>
             Installation de Docker</br>
             Séparation Moteur de jeux et serveur de stats</br>
