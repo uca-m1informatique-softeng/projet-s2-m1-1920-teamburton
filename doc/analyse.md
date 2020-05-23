@@ -1,8 +1,8 @@
 # <H1>ANALYSE DU PROJET</H1>
 - *DESCRIPTION*
-- **[PARTICIPATION DES MEMBRES DU GROUPES](#Participation des membres du groupe)**
-- **[POINTS FORTS](#Points forts)**
-- **[POINTS FAIBLES](#Points faibles)**
+- *PARTICIPATION DES MEMBRES DU GROUPES*
+- *POINTS FORTS*
+- *POINTS FAIBLES*
 
 # DESCRIPTION
 ......
