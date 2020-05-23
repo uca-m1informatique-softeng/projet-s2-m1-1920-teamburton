@@ -30,8 +30,9 @@ Pour lancer 1 ou n parties, il faut modifier le 3ème paramètre (nbPartie) lors
 # CONTRIBUTEURS 
 [PAJANY Allan ](https://github.com/Allan06)<br/>
 [PORRACCHIA Michael  ](https://github.com/)<br/>
-[DIALLO Elhadj Mamadou Foula](https://github.com/Diallo-ucad)<br/>
 [JANIN Rémi](https://github.com/Remi-janin)<br/>
+[DIALLO Elhadj Mamadou Foula](https://github.com/Diallo-ucad)<br/>
+
 
 
 
