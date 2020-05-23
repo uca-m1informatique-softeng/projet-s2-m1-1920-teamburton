@@ -9,8 +9,8 @@
 ### PARTICIPATION DES MEMBRES DU GROUPES
 
   <strong> PAJANI ALLAN </strong></br>
-            configuration  des postes de travail</br>
-            Installation de Docker</br>
+            - configuration  des postes de travail</br>
+            - Installation de Docker</br>
             Séparation Moteur de jeux et serveur de stats</br>
             Développement containeur Spring</br>
   <strong>PORACCHIA Michael</strong></br>
@@ -27,6 +27,9 @@
             Mise en place du conteneur Docker et son implémentation dans Travis </br>
 
 ### POINTS FORTS 
+   Pour ce qui est des points forts, nous pouvons citez: 
+   - Notre projet est fonctionnel et bien structuré
+ 
 
 ### POINTS FAIBLES
 
