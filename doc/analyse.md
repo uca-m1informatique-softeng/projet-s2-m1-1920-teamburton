@@ -1,3 +1,6 @@
+# <H1>PUERTO RICO JEUX DE SOCIETE</H1>
+
+<br/><p align="center"><img src="https://cf.geekdo-images.com/itemrep/img/ERdhn-fY5ScWqU1wdYDzEP9LzvM=/fit-in/246x300/pic158548.jpg" width="250" /></p><br/>
 # <H1>ANALYSE DU PROJET</H1>
 - *Description*
 - *Participation des membres du groupes*
@@ -12,7 +15,7 @@
   + <strong>PAJANI Allan </strong> : 
      - configuration  des postes de travail</br>
      - Installation de Docker</br>
-     - Séparation Moteur de jeux et serveur de stats</br>
+     - Séparation Moteur de jeu/serveur de stats</br>
      - Développement containeur Spring</br>
   + <strong>PORACCHIA Michael</strong></br>
      - configuration  des postes de travail</br>
@@ -21,7 +24,7 @@
   + <strong>JANIN Rémi</strong></br>
      - configuration  des postes de travail</br>
      - Installation de Docker</br>
-     - Séparation Moteur de jeux et serveur de stats</br>
+     - Séparation Moteur de jeu/serveur de stats</br>
   + <strong> DIALLO Elhadj Mamadou Foula </strong></br>
      - configuration des postes de travail </br>
      - Installation de Docker </br>
