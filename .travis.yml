@@ -17,7 +17,7 @@ before_script:
  - docker build -t serveur Serveur/.
  
 script:
- - docker run --rm --name serveur -p 2480:8080 serveur
+ - docker run --rm -d --name serveur -p 2480:8080 serveur
  - cd Moteur
  - mvn exec:java
  - docker stop serveur
