@@ -43,6 +43,8 @@ public class Partie {
 
     private SecureRandom random;
 
+    private String vainqueur;
+
     /**
      * Constructeur de la classe
      * @param nbJoueur nombre de joueurs jouable
@@ -510,5 +512,13 @@ public class Partie {
         // Navires
         this.navires.clear();
         initNavires();
+    }
+
+    public String getVainqueur() {
+        return vainqueur;
+    }
+
+    public void setVainqueur(String vainqueur) {
+        this.vainqueur = vainqueur;
     }
 }

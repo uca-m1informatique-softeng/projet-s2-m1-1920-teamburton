@@ -121,6 +121,7 @@ public class MoteurDuJeux {
 
         Joueurs vainqueur = classement[0];
         vainqueur.addVictoire();
+        partie.setVainqueur(vainqueur.getIdJoueur());
     }
 
     /**
@@ -250,6 +251,7 @@ public class MoteurDuJeux {
         }
 
         Joueurs vainqueur = classement[0];
+        partie.setVainqueur(vainqueur.getIdJoueur());
         vainqueur.addVictoire();
         System.out.println("\n\n\033[36m<" + vainqueur.getIdJoueur()
                          + "> gagne la partie avec " + vainqueur.getNbPointVictoire()

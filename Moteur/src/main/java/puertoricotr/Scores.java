@@ -14,13 +14,13 @@ public class Scores {
         ListeScoreDTO listeScoreDTO = new ListeScoreDTO(partie);
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Content-type", "application/json");
-        HttpEntity<String> req = new HttpEntity<>(listeScoreDTO.toString(), httpHeaders);
+        httpHeaders.add("Content-Type", "application/json");
+        HttpEntity<ListeScoreDTO> requete = new HttpEntity<>(listeScoreDTO, httpHeaders);
 
-        RestTemplate restTemplate = new RestTemplate();
-        String uri = "localhost:8080/score/v1/statistiques/save";
+        RestTemplate getRestTemplate = new RestTemplate();
+        String uri = "http://localhost:2480/score/v1/statistiques/save";
 
-        restTemplate.postForObject(uri, req, JSON.getClass());
+        getRestTemplate.postForObject(uri, requete, JSON.getClass());
 
         return listeScoreDTO;
     }

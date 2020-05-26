@@ -1,10 +1,13 @@
 package puertoricotr;
 
-import org.json.simple.JSONObject;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
+
 
 /**
  * Classe permettant de lancer le jeu.
@@ -14,24 +17,28 @@ public class Jeux {
 
     public static void main(String[] args) {
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Content-type", "application/json");
 
         Partie partie = new Partie(2, 2);
         MoteurDuJeux moteurDuJeux = new MoteurDuJeux(partie);
 
-        moteurDuJeux.tourDeJeuSansAffichage();
+        String uriPost = "http://localhost:2480/score/v1/statistiques/save";
 
-        Scores scores = new Scores();
-        //ListeScoreDTO listeScoreDTO = scores.genererStats(partie);
-        partie.resetPartie();
+        for (int i=0; i < 10; i++){
+            moteurDuJeux.tourDeJeuSansAffichage();
+            String vainqueur = partie.getVainqueur();
+            RestTemplate postRestTemplate = new RestTemplate();
+            postRestTemplate.postForObject(uriPost, vainqueur, String.class);
+            partie.resetPartie();
+        }
 
-        /*RestTemplate restTemplate = new RestTemplate();
-        JSONObject resultats = new JSONObject ();
-        String uri = "localhost:8080/score/v1/statistiques/1";
-        restTemplate.getForObject(uri, JSONObject.class, resultats);
+        for (int i=0; i < 10; i++) {
+            RestTemplate getRestTemplate = new RestTemplate();
+            String resultats = null;
+            String uriGet = "http://localhost:2480/score/v1/statistiques/" + (i + 1);
+            resultats = getRestTemplate.getForObject(uriGet, String.class);
 
-        System.out.println(resultats.toString());*/
+            System.out.println(resultats);
+        }
         SpringApplication.run(Jeux.class, args);
     }
 }
