@@ -18,7 +18,7 @@ services:
  
 before_script:
  - docker build -t serveur Serveur/.
- - docker run -d serveur -p 2480:8080 serveur
+ - docker run serveur -p 2480:8080 serveur
  
 script:
  - cd Moteur
