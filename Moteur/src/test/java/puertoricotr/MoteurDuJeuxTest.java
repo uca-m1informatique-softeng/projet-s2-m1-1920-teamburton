@@ -6,7 +6,7 @@ import puertoricotr.personnages.Personnage;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MoteurDuJeuxTest {
 
@@ -20,8 +20,8 @@ public class MoteurDuJeuxTest {
     @Test
     public void ajouteDoublonTest(){
 
-        this.partie = new Partie(0, 2, new ServeurStats());
-        moteurDuJeux = new MoteurDuJeux(partie,1);
+        this.partie = new Partie(0, 2);
+        moteurDuJeux = new MoteurDuJeux(partie);
 
         ArrayList<Personnage> personnages = new ArrayList<>();
 

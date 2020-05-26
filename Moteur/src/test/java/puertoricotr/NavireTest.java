@@ -1,8 +1,11 @@
 package puertoricotr;
-import static org.junit.Assert.*;
 
-import org.junit.*;
-import puertoricotr.stockageoutilsjeux.*;
+import org.junit.Test;
+import puertoricotr.stockageoutilsjeux.Navires;
+import puertoricotr.stockageoutilsjeux.Reserve;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class NavireTest {
 

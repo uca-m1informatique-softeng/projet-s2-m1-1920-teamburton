@@ -1,6 +1,7 @@
 package puertoricotr.stockageoutilsjeux;
 
 import puertoricotr.Constantes;
+
 /**
  * Classe définissant les propriétés du magasin.
  */

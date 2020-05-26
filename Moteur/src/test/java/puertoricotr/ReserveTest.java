@@ -1,8 +1,9 @@
 package puertoricotr;
-import static org.junit.Assert.*;
 
-import org.junit.*;
+import org.junit.Test;
 import puertoricotr.stockageoutilsjeux.Reserve;
+
+import static org.junit.Assert.assertEquals;
 
 public class ReserveTest {
 

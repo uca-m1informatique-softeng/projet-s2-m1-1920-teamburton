@@ -1,14 +1,13 @@
 package puertoricotr;
 
-import puertoricotr.batiments.Batiment;
-import puertoricotr.personnages.Personnage;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import puertoricotr.batiments.Batiment;
 import puertoricotr.exploitations.Exploitation;
+import puertoricotr.personnages.Personnage;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class BotRandomTest
     @BeforeEach
     void init(){
         bot = new StrategieRandom();
-        partie = new Partie(0, 2, new ServeurStats());
+        partie = new Partie(0, 2);
         joueur = partie.getJoueurs()[0];
         joueur.setIntelligenceArtificielle(bot);
         when(rand.nextInt(anyInt())).thenReturn(0,0, 1);

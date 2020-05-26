@@ -1,7 +1,6 @@
 package puertoricotr;
 
 import org.junit.Test;
-
 import puertoricotr.personnages.Capitaine;
 import puertoricotr.stockageoutilsjeux.Navires;
 
@@ -21,7 +20,7 @@ public class CapitaineTest {
 
         int i = 0;
 
-        partie = new Partie(0,2, new ServeurStats());
+        partie = new Partie(0,2);
         navires = partie.getNavires();
         joueur = partie.getJoueurs();
 

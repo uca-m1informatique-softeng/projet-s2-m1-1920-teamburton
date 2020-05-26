@@ -3,7 +3,6 @@ package puertoricotr;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import puertoricotr.batiments.Batiment;
 import puertoricotr.batiments.productions.TeinturerieIndigo;
 import puertoricotr.exploitations.Exploitation;

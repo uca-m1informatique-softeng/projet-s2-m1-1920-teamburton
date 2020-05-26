@@ -1,7 +1,6 @@
 package puertoricotr;
 
 import org.junit.Test;
-
 import puertoricotr.personnages.ChercheurOR;
 import puertoricotr.personnages.Personnage;
 import puertoricotr.stockageoutilsjeux.Banque;
@@ -20,7 +19,7 @@ public class ChercheurOrTest {
         Banque banque;
 
 
-        partie = new Partie(0, 2, new ServeurStats());
+        partie = new Partie(0, 2);
         joueur = partie.getJoueurs();
 
         banque = partie.getBanque();

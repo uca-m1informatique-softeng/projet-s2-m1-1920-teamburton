@@ -5,9 +5,8 @@ import puertoricotr.batiments.productions.TeinturerieIndigo;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
+
 public class PartieTest {
 
 
@@ -17,10 +16,10 @@ public class PartieTest {
     @Test
     public void initPilePlantationTest(){
 
-        Partie partie = new Partie(0, 2, new ServeurStats());
+        Partie partie = new Partie(0, 2);
         assertEquals(2, partie.getNbJoueurTotal());
 
-        partie = new Partie(0, 2, new ServeurStats());
+        partie = new Partie(0, 2);
         assertEquals (47, partie.getPilePlantation().size());
     }
 
@@ -29,7 +28,7 @@ public class PartieTest {
      */
     @Test
     public void initPlantationsTest(){
-        Partie partie = new Partie(0, 2, new ServeurStats());
+        Partie partie = new Partie(0, 2);
         assertTrue(partie.getPlantations().size()  > partie.getNbJoueurTotal());
     }
 
@@ -38,8 +37,8 @@ public class PartieTest {
      */
     @Test
     public void initNavireTest(){
-        // 2 Joueurs
-        Partie partie = new Partie(0, 2, new ServeurStats());
+        // 2 puertorico.Joueurs
+        Partie partie = new Partie(0, 2);
         assertEquals(2, partie.getNavires().size());
     }
     /**
@@ -47,7 +46,7 @@ public class PartieTest {
      */
     @Test
     public void joueurMaxPvTest(){
-        Partie partie = new Partie(0, 2, new ServeurStats());
+        Partie partie = new Partie(0, 2);
         ArrayList<Joueurs> joueurs = new ArrayList<>();
 
         Joueurs joueur1 = new Joueurs("Joueur 1",new StrategieRandom());
@@ -76,7 +75,7 @@ public class PartieTest {
     @Test
     public void testCitePleineTest(){
 
-        Partie partie = new Partie(0, 2, new ServeurStats());
+        Partie partie = new Partie(0, 2);
         // Cite vide
         assertFalse(partie.testCitePleine());
 
@@ -94,7 +93,7 @@ public class PartieTest {
     @Test
     public void calculerPointsVictoiresBatimentsTest(){
 
-        Partie partie = new Partie(0, 2, new ServeurStats());
+        Partie partie = new Partie(0, 2);
 
         Joueurs[] joueurs = partie.getJoueurs();
 

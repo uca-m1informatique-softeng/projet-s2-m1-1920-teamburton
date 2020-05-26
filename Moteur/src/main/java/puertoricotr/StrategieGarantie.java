@@ -3,7 +3,8 @@ package puertoricotr;
 import puertoricotr.batiments.Batiment;
 import puertoricotr.exploitations.Exploitation;
 import puertoricotr.personnages.Personnage;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.stockageoutilsjeux.Magasin;
+import puertoricotr.stockageoutilsjeux.Navires;
 
 import java.util.*;
 
@@ -48,7 +49,7 @@ public class StrategieGarantie implements IntelligenceArtificielle {
             strategie = Arrays.asList(tableauPersonnage).indexOf(Constantes.PAYSAN);
         }
 
-        // Si on a des exploitations occupéé et pas 12 bâtiments ou s'il possède plus de 10 doublons
+        // Si on a des puertorico.exploitations occupéé et pas 12 bâtiments ou s'il possède plus de 10 doublons
         if (plateau.exploitationOccupee() && plateau.getNbBatiment() < 12 && nbDoublon >= 9){
             strategie = Arrays.asList(tableauPersonnage).indexOf(Constantes.BATISSEUR);
         }
@@ -344,14 +345,14 @@ public class StrategieGarantie implements IntelligenceArtificielle {
             feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses exlpoitations.");
         }
 
-        // Possede des colons et il reste des batiments non occupés.
+        // Possede des colons et il reste des puertorico.batiments non occupés.
         if (plateau.getNbColon() > 0 && plateau.placeDispoCite()) {
             feedback.append(placerColonBatiment(plateau, id));
         }
 
         // Tous les bâtiments sont occupés
         else if (plateau.getNbColon() > 0 && !plateau.placeDispoCite()) {
-            feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses batiments.");
+            feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses puertorico.batiments.");
         }
 
         return feedback.toString();

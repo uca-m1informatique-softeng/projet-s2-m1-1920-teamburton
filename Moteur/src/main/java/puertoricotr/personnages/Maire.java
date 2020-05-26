@@ -3,11 +3,6 @@ package puertoricotr.personnages;
 import puertoricotr.Constantes;
 import puertoricotr.Joueurs;
 import puertoricotr.Partie;
-import puertoricotr.batiments.Batiment;
-import puertoricotr.exploitations.Exploitation;
-import puertoricotr.stockageoutilsjeux.*;
-
-import java.util.ArrayList;
 
 /**
  * Classe qui définie les action du personnage maire

@@ -1,9 +1,10 @@
 package puertoricotr;
 
 import puertoricotr.batiments.Batiment;
-import puertoricotr.personnages.Personnage;
 import puertoricotr.exploitations.Exploitation;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.personnages.Personnage;
+import puertoricotr.stockageoutilsjeux.Magasin;
+import puertoricotr.stockageoutilsjeux.Navires;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class StrategieMais implements IntelligenceArtificielle{
      */
     @Override
     public Personnage choixRole(Partie partie, Plateau plateau, int nbDoublon,
-                                int nbTonneauxTotal ,int tour){
+                                int nbTonneauxTotal , int tour){
 
         int i = 0;
         int strategie = -1;
@@ -51,7 +52,7 @@ public class StrategieMais implements IntelligenceArtificielle{
         }
 
         /*if (plateau.placeDispoIle()){
-            strategie = Arrays.asList(tableauPersonnage).indexOf(Constantes.PAYSAN);
+            strategie = Arrays.asList(tableauPersonnage).indexOf(puertorico.Constantes.PAYSAN);
         }*/
         // Si on a de la place dans l'ile
         if (plateau.getNbExploitation() < 12 && plantations.contains(Constantes.MAIS) && personnages.contains(Constantes.PAYSAN)){
@@ -114,7 +115,7 @@ public class StrategieMais implements IntelligenceArtificielle{
     }
 
     /**
-     * choisi un batiment au hasard parmis les batiments disponibles
+     * choisi un batiment au hasard parmis les puertorico.batiments disponibles
      * @return batiment choisi
      */
     @Override
@@ -255,7 +256,7 @@ public class StrategieMais implements IntelligenceArtificielle{
      * @return le feedback de la phase de placement.
      */
     @Override
-    public String placerColonBatiment(Plateau plateau,  String id){
+    public String placerColonBatiment(Plateau plateau, String id){
         int b = 0;
         StringBuilder feedback = new StringBuilder();
         Batiment batiment;
@@ -315,14 +316,14 @@ public class StrategieMais implements IntelligenceArtificielle{
         }
 
         nbColon = plateau.getNbColon();
-        // Possede des colons et il reste des batiments non occupés.
+        // Possede des colons et il reste des puertorico.batiments non occupés.
         if (nbColon > 0 && plateau.placeDispoCite()) {
             feedback.append(placerColonBatiment(plateau, id));
         }
 
         // Tous les bâtiments sont occupés
         else if (nbColon > 0 && !plateau.placeDispoCite()) {
-            feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses batiments.");
+            feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses puertorico.batiments.");
         }
 
         return feedback.toString();

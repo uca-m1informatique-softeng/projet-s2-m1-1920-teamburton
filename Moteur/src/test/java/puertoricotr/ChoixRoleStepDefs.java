@@ -1,7 +1,10 @@
 package puertoricotr;
 
 import io.cucumber.java8.Fr;
-import puertoricotr.personnages.*;
+import puertoricotr.personnages.ChercheurOR;
+import puertoricotr.personnages.Maire;
+import puertoricotr.personnages.Paysan;
+import puertoricotr.personnages.Personnage;
 
 import java.util.ArrayList;
 
@@ -35,7 +38,7 @@ public class ChoixRoleStepDefs implements Fr {
         });
 
         Quand("{string} choisi le personnage {string}", (String id, String nom) -> {
-            partie = new Partie(0, 2, new ServeurStats());
+            partie = new Partie(0, 2);
             joueur.setIDjoueur(id);
             assertEquals(id, joueur.getIdJoueur());
             nomPersonnage =  joueur.choixRole(partie, 0).getNom();

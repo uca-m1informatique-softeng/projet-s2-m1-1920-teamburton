@@ -2,7 +2,7 @@ package puertoricotr.batiments.productions;
 import puertoricotr.Constantes;
 import puertoricotr.batiments.Batiment;
 
-public class PetiteRaffinerieSucre extends Batiment{
+public class PetiteRaffinerieSucre extends Batiment {
     public PetiteRaffinerieSucre() {
         this.nom = "Petite raffinerie de sucre";
         this.nomPlantation = Constantes.SUCRE;

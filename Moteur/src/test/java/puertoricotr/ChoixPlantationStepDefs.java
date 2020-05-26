@@ -2,16 +2,17 @@ package puertoricotr;
 
 import io.cucumber.java8.Fr;
 import puertoricotr.batiments.Batiment;
+import puertoricotr.exploitations.Exploitation;
 import puertoricotr.personnages.Paysan;
 import puertoricotr.personnages.Personnage;
-import puertoricotr.exploitations.Exploitation;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.stockageoutilsjeux.Banque;
+import puertoricotr.stockageoutilsjeux.Magasin;
+import puertoricotr.stockageoutilsjeux.Navires;
+import puertoricotr.stockageoutilsjeux.Reserve;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ChoixPlantationStepDefs implements Fr {
 
@@ -43,7 +44,7 @@ public class ChoixPlantationStepDefs implements Fr {
     public ChoixPlantationStepDefs() {
 
         Etantdonné("un autre joueur du nom de {string}", (String id) -> {
-            partie = new Partie(0,2, new ServeurStats());
+            partie = new Partie(0,2);
 
             joueurs = new Joueurs[1];
             joueurs[0] = partie.getJoueurs()[0];

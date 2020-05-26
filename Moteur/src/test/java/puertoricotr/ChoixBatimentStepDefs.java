@@ -1,17 +1,19 @@
 package puertoricotr;
 
 import io.cucumber.java8.Fr;
-import puertoricotr.batiments.*;
+import puertoricotr.batiments.Batiment;
 import puertoricotr.batiments.productions.*;
 import puertoricotr.exploitations.Exploitation;
-import puertoricotr.personnages.*;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.personnages.Batisseur;
+import puertoricotr.personnages.Personnage;
+import puertoricotr.stockageoutilsjeux.Banque;
+import puertoricotr.stockageoutilsjeux.Magasin;
+import puertoricotr.stockageoutilsjeux.Navires;
+import puertoricotr.stockageoutilsjeux.Reserve;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ChoixBatimentStepDefs implements Fr {
@@ -44,7 +46,7 @@ public class ChoixBatimentStepDefs implements Fr {
     public ChoixBatimentStepDefs() {
 
         Etantdonné("le joueur du nom de {string}", (String id) -> {
-            partie = new Partie(0, 2, new ServeurStats());
+            partie = new Partie(0, 2);
             joueurs[0] = partie.getJoueurs()[0];
             joueurs = new Joueurs[1];
             joueurs[0] = joueur;
@@ -61,7 +63,7 @@ public class ChoixBatimentStepDefs implements Fr {
 
         });
 
-        Et("la liste de batiments de productions {string}, {string}, {string}, {string}, {string} et {string}", (String nom1, String nom2, String nom3, String nom4, String nom5, String nom6) -> {
+        Et("la liste de puertorico.batiments de productions {string}, {string}, {string}, {string}, {string} et {string}", (String nom1, String nom2, String nom3, String nom4, String nom5, String nom6) -> {
 
             batiments = new ArrayList<>();
             raffinerieSucre = new RaffinerieSucre();

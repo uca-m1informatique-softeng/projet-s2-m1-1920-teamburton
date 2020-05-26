@@ -122,7 +122,7 @@ public class StrategieTour implements IntelligenceArtificielle{
     }
 
     /**
-     * choisi un batiment au hasard parmis les batiments disponibles
+     * choisi un batiment au hasard parmis les puertorico.batiments disponibles
      * @return batiment choisi
      */
     @Override
@@ -254,14 +254,14 @@ public class StrategieTour implements IntelligenceArtificielle{
                 feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses exlpoitations.");
             }
 
-            // Possede des colons et il reste des batiments non occupés.
+            // Possede des colons et il reste des puertorico.batiments non occupés.
             if (plateau.getNbColon() > 0 && plateau.placeDispoCite()) {
                 feedback.append(placerColonBatiment(plateau, id));
             }
 
             // Tous les bâtiments sont occupés
             else if (plateau.getNbColon() > 0 && !plateau.placeDispoCite()) {
-                feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses batiments.");
+                feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses puertorico.batiments.");
             }
         }
 

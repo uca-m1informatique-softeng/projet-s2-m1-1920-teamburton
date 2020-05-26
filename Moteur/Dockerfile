@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk-slim
+FROM openjdk:8-jdk-slim
 COPY . /home/Puerto-Rico/docker/java
 WORKDIR /home/Puerto-Rico/docker/java
 ARG JAR_FILE=./target/Moteur-0.1-SNAPSHOT.jar

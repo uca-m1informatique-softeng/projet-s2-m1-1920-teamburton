@@ -6,15 +6,19 @@ import puertoricotr.batiments.petits.*;
 import puertoricotr.batiments.productions.*;
 import puertoricotr.exploitations.Exploitation;
 import puertoricotr.personnages.*;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.stockageoutilsjeux.Banque;
+import puertoricotr.stockageoutilsjeux.Magasin;
+import puertoricotr.stockageoutilsjeux.Navires;
+import puertoricotr.stockageoutilsjeux.Reserve;
+
 import java.security.SecureRandom;
 import java.util.*;
 
 /**
  * Classe contenant les élément d'une partie
  */
-public class
-Partie {
+
+public class Partie {
     private int nbJoueurTotal;
     private Joueurs[] joueurs;
 
@@ -37,7 +41,6 @@ Partie {
     private Banque banque;
     private Reserve reserve;
 
-    private ServeurStats serveurStats;
     private SecureRandom random;
 
     /**
@@ -45,7 +48,7 @@ Partie {
      * @param nbJoueur nombre de joueurs jouable
      * @param nbBot nombre de joueurs non jouable (bot)
      */
-    public Partie(int nbJoueur, int nbBot, ServeurStats serveurStats, String... nomStrat) {
+    public Partie(int nbJoueur, int nbBot, String... nomStrat) {
         this.random = new SecureRandom();
 
         this.nbJoueurTotal = nbJoueur + nbBot;
@@ -79,8 +82,6 @@ Partie {
         initCarrieres();
         initBatiments();
         initNavires();
-
-        this.serveurStats = serveurStats;
     }
 
     /**
@@ -291,7 +292,7 @@ Partie {
             this.batiments.add(new BrulerieCafe());
         }
 
-        // Petits batiments mauve
+        // Petits puertorico.batiments mauve
         int nbPetitBat = (this.nbJoueurTotal < 3) ? 1 : 2;
         for (int b = 0; b < nbPetitBat; b++){
             this.batiments.add(new Hacienda());
@@ -352,7 +353,7 @@ Partie {
      * Trie les joueurs par ordre décroissant selon leurs nombre de points victoires
      * @return la liste de classement des joueurs0
      */
-    public Joueurs [] classementJoueurs() {
+    public Joueurs[] classementJoueurs() {
         Joueurs[] classement = new Joueurs[this.nbJoueurTotal];
         ArrayList<Joueurs> listeJoueurs = new ArrayList<>(Arrays.asList(this.joueurs));
         Joueurs jMaxPV;
@@ -487,7 +488,7 @@ Partie {
             p.recupereDoublon();
         }
 
-        // Joueurs
+        // puertorico.Joueurs
         Joueurs[] listeJoueurs = this.joueurs;
         for(int j = 0; j < nbJoueurTotal; j++){
             listeJoueurs[j].resetJoueur();
@@ -509,18 +510,5 @@ Partie {
         // Navires
         this.navires.clear();
         initNavires();
-    }
-
-
-    public void sauvegarderStatsPartie(){
-        serveurStats.insererStatsPartie(this);
-    }
-
-    public void sauvegarderStatsResultats(){
-        serveurStats.insererResultats(this);
-    }
-
-    public void afficherResultats(){
-        serveurStats.afficherResultats();
     }
 }

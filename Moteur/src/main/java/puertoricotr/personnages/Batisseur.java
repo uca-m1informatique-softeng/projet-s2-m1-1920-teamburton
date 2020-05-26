@@ -4,8 +4,7 @@ import puertoricotr.Constantes;
 import puertoricotr.Joueurs;
 import puertoricotr.Partie;
 import puertoricotr.batiments.Batiment;
-import puertoricotr.exploitations.Exploitation;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.stockageoutilsjeux.Banque;
 
 import java.util.ArrayList;
 
@@ -34,7 +33,7 @@ public class Batisseur extends Personnage{
         int nbJ = 0;
         while(nbJ < joueurs.length){
             if(batiments.isEmpty()){
-                return "\nIl n'y a plus de batiments.";
+                return "\nIl n'y a plus de puertorico.batiments.";
             }
 
             else if (joueurs[j].peutConstruire(batiments)) {

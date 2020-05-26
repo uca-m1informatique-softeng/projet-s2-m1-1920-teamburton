@@ -10,8 +10,8 @@ import puertoricotr.exploitations.Exploitation;
 import puertoricotr.stockageoutilsjeux.Magasin;
 import puertoricotr.stockageoutilsjeux.Navires;
 
-import java.util.ArrayList;
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +24,7 @@ public class JoueursTest {
 
     void init(){
 
-        partie = new Partie(0,2, new ServeurStats());
+        partie = new Partie(0,2);
         joueur = partie.getJoueurs()[0];
     }
 
@@ -80,7 +80,7 @@ public class JoueursTest {
 
 
     /**
-     * Test méthode peutConstruire(ArrayList<Batiment> batiments)
+     * Test méthode peutConstruire(ArrayList<Batiment> puertorico.batiments)
      */
     @Test
     public void peutConstruireTest(){

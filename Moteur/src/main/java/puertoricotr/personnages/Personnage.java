@@ -2,11 +2,6 @@ package puertoricotr.personnages;
 
 import puertoricotr.Joueurs;
 import puertoricotr.Partie;
-import puertoricotr.batiments.Batiment;
-import puertoricotr.exploitations.Exploitation;
-import puertoricotr.stockageoutilsjeux.*;
-
-import java.util.ArrayList;
 
 /**
  * Classe abstraite dont herite les different personnage que l'on peux choisir

@@ -18,7 +18,7 @@ public class MarchandTest {
     @Test
     public void actionTest() {
 
-        Partie partie = new Partie(0,2, new ServeurStats());
+        Partie partie = new Partie(0,2);
         Joueurs[] joueur;
 
         Marchand marchand;

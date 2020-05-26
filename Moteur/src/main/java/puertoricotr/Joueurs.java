@@ -1,15 +1,16 @@
 package puertoricotr;
 
-import puertoricotr.personnages.Personnage;
-import puertoricotr.exploitations.Exploitation;
 import puertoricotr.batiments.Batiment;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.exploitations.Exploitation;
+import puertoricotr.personnages.Personnage;
+import puertoricotr.stockageoutilsjeux.Navires;
 
 import java.util.*;
 
 /**
  * Classe gérant les joueurs (jouable)
  */
+
 public class Joueurs {
     private String idJoueur;
     private Plateau plateau;
@@ -161,7 +162,7 @@ public class Joueurs {
     }
 
 
-    /* Plateau
+    /* puertorico.Plateau
      * ------------------------------------------------------------------------------------------ */
     public Plateau getPlateau() {
         return this.plateau;

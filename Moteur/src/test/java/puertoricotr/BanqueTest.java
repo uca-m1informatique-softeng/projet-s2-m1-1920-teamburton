@@ -1,10 +1,10 @@
 package puertoricotr;
 
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import org.junit.Test;
 import puertoricotr.stockageoutilsjeux.Banque;
-import org.junit.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Unit test for simple App.

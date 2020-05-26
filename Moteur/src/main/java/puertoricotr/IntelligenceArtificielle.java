@@ -3,7 +3,7 @@ package puertoricotr;
 import puertoricotr.batiments.Batiment;
 import puertoricotr.exploitations.Exploitation;
 import puertoricotr.personnages.Personnage;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.stockageoutilsjeux.Navires;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -11,7 +11,7 @@ import java.util.Map;
 public interface IntelligenceArtificielle {
     /**
      * Choisi un role au hasard parmis les roles disponibles
-     * @param partie Permet de récuprer l'Arraylist des personnages
+     * @param partie Permet de récuprer l'Arraylist des puertorico.personnages
      * @return Personnage represantant le role choisi
      */
     Personnage choixRole(Partie partie, Plateau plateau, int nbDoublon,
@@ -28,7 +28,7 @@ public interface IntelligenceArtificielle {
 
 
     /**
-     * choisi un batiment au hasard parmis les batiments disponibles
+     * choisi un batiment au hasard parmis les puertorico.batiments disponibles
      * @return batiment choisi
      */
      Batiment choixBatiment(Partie partie, int nbDoublon, Plateau plateau);

@@ -3,7 +3,8 @@ package puertoricotr;
 import puertoricotr.batiments.Batiment;
 import puertoricotr.exploitations.Exploitation;
 import puertoricotr.personnages.Personnage;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.stockageoutilsjeux.Navires;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -15,7 +16,7 @@ public class IntelligencePasArtificielle {
     }
     /**
      * Recupere la ligne tapé par le joueur et recupere le personnage associé
-     * @param roles ArrayList des personnages disponibles
+     * @param roles ArrayList des puertorico.personnages disponibles
      * @return Personnage choisit par le joueur
      */
     public Personnage choixRole(ArrayList<Personnage> roles) {
@@ -64,7 +65,7 @@ public class IntelligencePasArtificielle {
 
     /**
      * Recupere la ligne tapé par le joueur et recupere le batiment associé
-     * @param batiments ArrayList des batiments disponibles
+     * @param batiments ArrayList des puertorico.batiments disponibles
      * @return batiment choisi par le joueur
      */
     public Batiment choixBatiment(ArrayList<Batiment> batiments) {
@@ -100,7 +101,7 @@ public class IntelligencePasArtificielle {
         ArrayList<Batiment> batiments = new ArrayList<>();
         ArrayList<Exploitation> exploitations = new ArrayList<>();
 
-        // Récuperations des bâtiments/exploitations dans une Arraylist
+        // Récuperations des bâtiments/puertorico.exploitations dans une Arraylist
         exploitations.addAll(Arrays.asList(plateau.getIle()).subList(0,
                 plateau.getNbExploitation()));
 

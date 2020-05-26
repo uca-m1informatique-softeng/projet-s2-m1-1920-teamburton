@@ -1,7 +1,6 @@
 package puertoricotr;
 
 import org.junit.Test;
-
 import puertoricotr.personnages.Maire;
 import puertoricotr.stockageoutilsjeux.Banque;
 
@@ -11,7 +10,7 @@ public class MaireTest {
     @Test
     public void actionTest() {
 
-        Partie partie = new Partie(0,2, new ServeurStats());
+        Partie partie = new Partie(0,2);
         Joueurs[] joueur;
 
         Maire maire;

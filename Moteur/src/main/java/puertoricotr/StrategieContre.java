@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class StrategieContre implements  IntelligenceArtificielle {
+public class StrategieContre implements IntelligenceArtificielle {
     private String nomBot;
     private String nomStrategie;
 
@@ -393,14 +393,14 @@ public class StrategieContre implements  IntelligenceArtificielle {
         }
 
         nbColon = plateau.getNbColon();
-        // Possede des colons et il reste des batiments non occupés.
+        // Possede des colons et il reste des puertorico.batiments non occupés.
         if (nbColon > 0 && plateau.placeDispoCite()) {
             feedback.append(placerColonBatiment(plateau, id));
         }
 
         // Tous les bâtiments sont occupés
         else if (nbColon > 0 && !plateau.placeDispoCite()) {
-            feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses batiments.");
+            feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses puertorico.batiments.");
         }
 
         return feedback.toString();

@@ -3,13 +3,8 @@ package puertoricotr.personnages;
 import puertoricotr.Constantes;
 import puertoricotr.Joueurs;
 import puertoricotr.Partie;
-import puertoricotr.batiments.Batiment;
-import puertoricotr.batiments.petits.Hacienda;
 import puertoricotr.exploitations.Exploitation;
 import puertoricotr.stockageoutilsjeux.Banque;
-import puertoricotr.stockageoutilsjeux.Magasin;
-import puertoricotr.stockageoutilsjeux.Navires;
-import puertoricotr.stockageoutilsjeux.Reserve;
 
 import java.util.ArrayList;
 

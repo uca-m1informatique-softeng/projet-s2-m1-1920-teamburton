@@ -17,7 +17,7 @@ public class ProducteurTest {
 
     @Test
     public void actionTest() {
-        Partie partie = new Partie(0, 2, new ServeurStats());
+        Partie partie = new Partie(0, 2);
         Joueurs[] joueur;
 
         Producteur producteur;
@@ -38,7 +38,7 @@ public class ProducteurTest {
         producteur = new Producteur();
         navires.add(new Navires(4));
 
-        /* Joueurs ne possede ni bâtiments, ni plantations
+        /* puertorico.Joueurs ne possede ni bâtiments, ni plantations
          * -------------------------------------------------------------------------------------- */
         producteur.action(joueur, i, partie, 1);
 
@@ -49,7 +49,7 @@ public class ProducteurTest {
         assertEquals(0, joueur[1].getNbTonneauxActuel());
 
 
-        /* Joueurs possede un bâtiment, mais pas de plantations mais ne produit rien
+        /* puertorico.Joueurs possede un bâtiment, mais pas de plantations mais ne produit rien
          * -------------------------------------------------------------------------------------- */
         sechoirTabac = new SechoirTabac();
 
@@ -61,7 +61,7 @@ public class ProducteurTest {
         assertEquals(0, joueur[1].getNbTonneauxActuel());
 
 
-        /* Joueurs possede bâtiments et plantations du même type
+        /* puertorico.Joueurs possede bâtiments et plantations du même type
          * -------------------------------------------------------------------------------------- */
         indigo = new Exploitation(Constantes.INDIGO);
         teinturerieIndigo = new TeinturerieIndigo();
@@ -79,7 +79,7 @@ public class ProducteurTest {
         assertEquals(1, joueur[1].getNbIndigo());
 
 
-        /* Joueurs possede une plantation de mais
+        /* puertorico.Joueurs possede une plantation de mais
          * -------------------------------------------------------------------------------------- */
         mais = new Exploitation(Constantes.MAIS);
 
@@ -92,7 +92,7 @@ public class ProducteurTest {
         assertTrue(reserve.getNbMarchandise(Constantes.MAIS) > 0);
         assertEquals(1, joueur[1].getNbMais());
 
-        /* Joueurs possede une plantation de mais, mais la reserve n'a plus de mais
+        /* puertorico.Joueurs possede une plantation de mais, mais la reserve n'a plus de mais
          * -------------------------------------------------------------------------------------- */
         Reserve reserveMaisTest = new Reserve(0, 10, 1, 1, 1);
 

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Classe gerant le plateau du joueur contenant les emplacements pour les plantations et les batiments (a venir)
+ * Classe gerant le plateau du joueur contenant les emplacements pour les plantations et les puertorico.batiments (a venir)
  */
 public class Plateau {
     private Exploitation[] ile;
@@ -191,7 +191,7 @@ public class Plateau {
     }
 
     /**
-     * Méthode permettant de faire un histogramme des exploitations occupées au sein d'une
+     * Méthode permettant de faire un histogramme des puertorico.exploitations occupées au sein d'une
      * hashmap (nom de l'exploitation, nombre d'exploitation du même nom occupée).
      * @param nomExploitation nom de l'exploitation à prendre en compte
      */

@@ -2,10 +2,10 @@ package puertoricotr;
 
 import puertoricotr.batiments.Batiment;
 import puertoricotr.exploitations.Exploitation;
-import puertoricotr.personnages.*;
+import puertoricotr.personnages.Personnage;
 import puertoricotr.stockageoutilsjeux.Navires;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * Classe gérant le déroulement de la partie
@@ -18,10 +18,10 @@ public class MoteurDuJeux {
     /**
      * Constructeur de la classe
      */
-    public MoteurDuJeux(Partie partie, int nbPartie){
+    public MoteurDuJeux(Partie partie){
         this.partie = partie;
 
-        lancerParties(nbPartie);
+        //lancerParties(nbPartie);
     }
 
 
@@ -189,7 +189,7 @@ public class MoteurDuJeux {
         }
 
 
-        System.out.println("Partie terminée. Distribution des points de victoires :");
+        System.out.println("puertorico.Partie terminée. Distribution des points de victoires :");
 
         // Calcul des points victoires de fin
         for (int j = 0; j < nbJoueurTotal; j++){
@@ -231,7 +231,7 @@ public class MoteurDuJeux {
         // Si partie nulle, ajout des doublons de chaque joueur à leur nombre de points victoires
         int nbJoueursEq = partie.partieNulle();
         if (nbJoueursEq > 0) {
-            System.out.println("\nPartie nulle, nouveau calcul des points de victoires en "
+            System.out.println("\npuertorico.Partie nulle, nouveau calcul des points de victoires en "
                                + "ajoutant le nombre de doublon :\n");
             for (int j = 0; j <= nbJoueursEq; j++) {
                 int pvDoublon = joueurs[j].getNbDoublon();
@@ -260,11 +260,11 @@ public class MoteurDuJeux {
     }
 
 
-    private void lancerParties(int nbParties){
+    public void lancerParties(int nbParties){
         int i = nbParties;
         if(nbParties == 0){
             tourDeJeu();
-            partie.sauvegarderStatsPartie();
+            //partie.sauvegarderStatsPartie();
             partie.resetPartie();
         }
 
@@ -272,14 +272,14 @@ public class MoteurDuJeux {
 
             while (i > 0){
                 tourDeJeuSansAffichage();
-                partie.sauvegarderStatsPartie();
+                ///partie.sauvegarderStatsPartie();
                 partie.resetPartie();
                 i--;
             }
         }
 
-        partie.sauvegarderStatsResultats();
-        partie.afficherResultats();
+        //partie.sauvegarderStatsResultats();
+        //partie.afficherResultats();
     }
 
 
@@ -375,7 +375,7 @@ public class MoteurDuJeux {
 
 
     /**
-     * Affiche le plateau du joueur contenant ses plantations et ses batiments.
+     * Affiche le plateau du joueur contenant ses plantations et ses puertorico.batiments.
      * @param joueur: un joueur.
      */
     private void affichagePlateau(Joueurs joueur){

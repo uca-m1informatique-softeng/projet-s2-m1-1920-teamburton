@@ -4,7 +4,7 @@ import puertoricotr.Constantes;
 import puertoricotr.Joueurs;
 import puertoricotr.Partie;
 import puertoricotr.batiments.Batiment;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.stockageoutilsjeux.Reserve;
 
 import java.util.HashMap;
 import java.util.Map;

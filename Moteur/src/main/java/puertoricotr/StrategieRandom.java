@@ -1,9 +1,9 @@
 package puertoricotr;
 
 import puertoricotr.batiments.Batiment;
-import puertoricotr.personnages.Personnage;
 import puertoricotr.exploitations.Exploitation;
-import puertoricotr.stockageoutilsjeux.*;
+import puertoricotr.personnages.Personnage;
+import puertoricotr.stockageoutilsjeux.Navires;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Classe gérant les bots
  */
-public class StrategieRandom implements IntelligenceArtificielle{
+public class StrategieRandom implements IntelligenceArtificielle {
 
     private SecureRandom random;
     private String nomBot;
@@ -42,7 +42,7 @@ public class StrategieRandom implements IntelligenceArtificielle{
      */
     @Override
     public Personnage choixRole(Partie partie, Plateau plateau, int nbDoublon,
-                                int nbTonneauxTotal ,int tour){
+                                int nbTonneauxTotal , int tour){
 
         ArrayList<Personnage> roles = partie.getPersonnages();
         int i = this.random.nextInt(roles.size());
@@ -84,7 +84,7 @@ public class StrategieRandom implements IntelligenceArtificielle{
     }
 
     /**
-     * choisi un batiment au hasard parmis les batiments disponibles
+     * choisi un batiment au hasard parmis les puertorico.batiments disponibles
      * @return batiment choisi
      */
     @Override
@@ -165,7 +165,7 @@ public class StrategieRandom implements IntelligenceArtificielle{
      * @return le feedback de la phase de placement.
      */
     @Override
-    public String placerColonBatiment(Plateau plateau,  String id){
+    public String placerColonBatiment(Plateau plateau, String id){
         int b = 0;
         StringBuilder feedback = new StringBuilder();
         Batiment batiment;
@@ -220,14 +220,14 @@ public class StrategieRandom implements IntelligenceArtificielle{
                 feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses exlpoitations.");
             }
 
-            // Possede des colons et il reste des batiments non occupés.
+            // Possede des colons et il reste des puertorico.batiments non occupés.
             if (plateau.getNbColon() > 0 && plateau.placeDispoCite()) {
                 feedback.append(placerColonBatiment(plateau, id));
             }
 
             // Tous les bâtiments sont occupés
             else if (plateau.getNbColon() > 0 && !plateau.placeDispoCite()) {
-                feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses batiments.");
+                feedback.append("\n<" + id + "> ne peut plus placer de colons dans ses puertorico.batiments.");
             }
         }
 
