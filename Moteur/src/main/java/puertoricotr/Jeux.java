@@ -23,15 +23,15 @@ public class Jeux {
         moteurDuJeux.tourDeJeuSansAffichage();
 
         Scores scores = new Scores();
-        ListeScoreDTO listeScoreDTO = scores.genererStats(partie);
+        //ListeScoreDTO listeScoreDTO = scores.genererStats(partie);
         partie.resetPartie();
 
-        RestTemplate restTemplate = new RestTemplate();
+        /*RestTemplate restTemplate = new RestTemplate();
         JSONObject resultats = new JSONObject ();
         String uri = "localhost:8080/score/v1/statistiques/1";
         restTemplate.getForObject(uri, JSONObject.class, resultats);
 
-        System.out.println(resultats.toString());
+        System.out.println(resultats.toString());*/
         SpringApplication.run(Jeux.class, args);
     }
 }
