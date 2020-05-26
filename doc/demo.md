@@ -19,5 +19,5 @@
   *6_ Exécution de l'application SpringBoot "Moteur" qui est notre moteur de jeu (celui-ci exécute 10 parties et requiert le service de sauvegarde du serveur de stat à la fin de chacune pour enregistrer le vainqueur de chaque partie)*</br>
 
 ## Images d'exécutions
-<br/><p align="center"><img src="C:\Users\Kinli\Desktop\Statisitques-Chrome.png" /></p><br/>
-<br/><p align="center"><img src="Build-Travis.png" width="250" /></p><br/>
+<br/><p align="center"><img src="Statisitques-Chrome.png" /></p><br/>
+<br/><p align="center"><img src="Build-Travis.png"/></p><br/>
