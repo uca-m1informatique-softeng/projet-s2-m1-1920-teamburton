@@ -22,5 +22,6 @@ before_script:
  - docker run -d --rm --name serveur -p 2480:8080 serveur
  
 script:
+ - sleep 10
  - cd Moteur
  - mvn exec:java
