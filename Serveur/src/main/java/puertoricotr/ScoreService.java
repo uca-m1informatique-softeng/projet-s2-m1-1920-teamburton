@@ -4,23 +4,26 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 
 @Component
 public class ScoreService {
 
-    JSONArray jsonArray;
+    ArrayList <String> listeVainqueurs;
 
     public ScoreService() {
-        this.jsonArray = new JSONArray();
+        this.listeVainqueurs = new ArrayList();
     }
 
-    public void addScore(JSONObject j) {
-        jsonArray.add(j);
+    public void addScore(String j) {
+        listeVainqueurs.add(j);
     }
 
-    public JSONArray getScores() {
-        return jsonArray;
+    public ArrayList getScores() {
+        return listeVainqueurs;
     }
 
-    public Object getScore(int i) { return jsonArray.get(i); }
+    public String getScore(int i) { return listeVainqueurs.get(i); }
 }
