@@ -8,14 +8,19 @@ install:
  
  - cd ../Moteur
  - mvn install -DskipTests
-
+ 
 test:
  - mvn test
+ 
+services:
+ - docker
  
 before_script:
  - cd ../Serveur
  - docker build -t serveur .
  - cd ..
+ - docker run -d --rm --name serveur -p 2480:8080 serveur
  
 script:
- - docker run --rm --name serveur -p 2480:8080 server
+ - cd Moteur
+ - mvn exec:java
