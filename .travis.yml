@@ -1,13 +1,28 @@
 language: java
 jdk:
- - openjdk11
+ - openjdk8
  
 install: 
+ - cd Serveur
+ - mvn install
+ 
+ - cd ../Moteur
  - mvn install -DskipTests
-
+ 
+test:
+ - mvn test
+ 
+services:
+ - docker
+ 
 before_script:
- - docker build -t puerto-rico .
+ - cd ../Serveur
+ - docker build -t serveur .
+ - cd ..
+ - docker run -d --rm --name serveur -p 2480:8080 serveur
  
 script:
- - mvn test
- - docker run puerto-rico
+ - sleep 10
+ - cd Moteur
+ - mvn exec:java
+ 

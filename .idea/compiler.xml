@@ -6,11 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="PuertoRico" />
+        <module name="Moteur" />
+        <module name="Serveur" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Moteur" target="1.8" />
       <module name="PuertoRico" target="1.8" />
+      <module name="Serveur" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
