@@ -13,14 +13,11 @@ test:
  - mvn test
  cd ..
  
-services:
- - docker
- 
 before_script:
  - docker build -t serveur Serveur/.
- - docker run serveur -p 2480:8080 serveur
  
 script:
+ - docker run -d --rm --name serveur -p 2480:8080 serveur
  - cd Moteur
  - mvn exec:java
  - docker stop serveur
