@@ -21,6 +21,7 @@ public class Jeux {
         MoteurDuJeux moteurDuJeux = new MoteurDuJeux(partie);
 
         moteurDuJeux.tourDeJeuSansAffichage();
+
         Scores scores = new Scores();
         ListeScoreDTO listeScoreDTO = scores.genererStats(partie);
         partie.resetPartie();
