@@ -3,9 +3,6 @@ package puertoricotr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -34,7 +31,7 @@ public class Jeux {
         for (int i=0; i < 10; i++) {
             RestTemplate getRestTemplate = new RestTemplate();
             String resultats = null;
-            String uriGet = "http://localhost:2480/score/v1/statistiques/" + (i + 1);
+            String uriGet = "http://localhost:2480/score/v1/statistiques/" + (i);
             resultats = getRestTemplate.getForObject(uriGet, String.class);
 
             System.out.println(resultats);
