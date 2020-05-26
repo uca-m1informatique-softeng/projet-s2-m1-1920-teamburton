@@ -28,10 +28,10 @@ public class Jeux {
             partie.resetPartie();
         }
 
-        for (int i=0; i < 10; i++) {
+        for (int i=1; i < 11; i++) {
             RestTemplate getRestTemplate = new RestTemplate();
             String resultats = null;
-            String uriGet = "http://localhost:2480/score/v1/statistiques/" + (i);
+            String uriGet = "http://localhost:2480/score/v1/statistiques/" + i;
             resultats = getRestTemplate.getForObject(uriGet, String.class);
 
             System.out.println(resultats);
