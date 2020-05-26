@@ -25,3 +25,4 @@ script:
  - sleep 10
  - cd Moteur
  - mvn exec:java
+ 
