@@ -20,4 +20,4 @@
 
 ## Images d'exécutions
 <br/><p align="center"><img src="C:\Users\Kinli\Desktop\Statisitques-Chrome.png" /></p><br/>
-<br/><p align="center"><img src="C:\Users\Kinli\Desktop\Build-Travis.png" width="250" /></p><br/>
+<br/><p align="center"><img src="Build-Travis.png" width="250" /></p><br/>
