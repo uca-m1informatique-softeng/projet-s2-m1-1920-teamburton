@@ -11,13 +11,11 @@ install:
 
 test:
  - mvn test
- cd ..
  
 before_script:
- - docker build -t serveur Serveur/.
+ - cd ../Serveur
+ - docker build -t serveur .
+ - cd ..
  
 script:
- - docker run --rm --name serveur -p 2480:8080 serveur
- - cd Moteur
- - mvn exec:java
- 
+ - docker run --rm --name serveur -p 2480:8080 server
