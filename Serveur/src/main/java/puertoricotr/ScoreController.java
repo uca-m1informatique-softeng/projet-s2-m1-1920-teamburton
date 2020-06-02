@@ -17,7 +17,6 @@ public class ScoreController {
     public ScoreController(ScoreService scoreService) { this.scoreService = scoreService; }
 
     @PostMapping(value = "/statistiques/save")
-
     public void addScore(@RequestBody String vainqueur) {
         scoreService.addScore(vainqueur);
     }
