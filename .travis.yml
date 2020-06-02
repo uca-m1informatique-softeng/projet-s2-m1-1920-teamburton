@@ -7,10 +7,7 @@ install:
  - mvn install
  
  - cd ../Moteur
- - mvn install -DskipTests
- 
-test:
- - mvn test
+ - mvn install
  
 services:
  - docker
