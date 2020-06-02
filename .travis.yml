@@ -4,16 +4,10 @@ jdk:
  
 install: 
  - cd Serveur
- - mvn install -DskipTests
+ - mvn install
  
  - cd ../Moteur
- - mvn install -DskipTests
- 
-test:
- - cd ../Serveur
- - mvn test
- - cd ../Moteur
- - mvn test
+ - mvn install
  
 services:
  - docker
