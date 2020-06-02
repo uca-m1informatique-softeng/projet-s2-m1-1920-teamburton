@@ -4,12 +4,15 @@ jdk:
  
 install: 
  - cd Serveur
- - mvn install
+ - mvn install -DskipTests
  
  - cd ../Moteur
  - mvn install -DskipTests
  
 test:
+ - cd ../Serveur
+ - mvn test
+ - cd ../Moteur
  - mvn test
  
 services:
